@@ -18,6 +18,8 @@ const Budget = () => {
           { id: 1, name: 'Расход', tab: BudgetTabsEnum.OUTCOME },
           { id: 2, name: 'Должники', tab: BudgetTabsEnum.DEBTORS },
         ]}
+        action={routesStore.setBudgetRoute}
+        route={routesStore.budgetRoute}
       />
       <div className={styles.container}>{routesStore.budgetRoute}</div>
     </WithNavbar>

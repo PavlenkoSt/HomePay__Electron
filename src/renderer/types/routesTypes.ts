@@ -3,3 +3,8 @@ export enum BudgetTabsEnum {
   OUTCOME = 'OUTCOME',
   DEBTORS = 'DEBTORS',
 }
+
+export enum StatisticsTabsEnum {
+  JOURNAL = 'JOURNAL',
+  REPORTS = 'REPORTS',
+}
