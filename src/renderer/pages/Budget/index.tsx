@@ -1,16 +1,14 @@
-import { useState } from 'react'
+import { observer } from 'mobx-react-lite'
 
 import Subbar from 'renderer/components/Navbars/Subbar'
 import WithNavbar from 'renderer/layouts/WithNavbar'
+import { useStore } from 'renderer/store'
+import { BudgetTabsEnum } from 'renderer/types/routesTypes'
 
-export enum BudgetTabsEnum {
-  INCOME = 'INCOME',
-  OUTCOME = 'OUTCOME',
-  DEBTORS = 'DEBTORS',
-}
+import styles from './styles.module.scss'
 
 const Budget = () => {
-  const [activeTab, setActiveTab] = useState(BudgetTabsEnum.INCOME)
+  const { routesStore } = useStore()
 
   return (
     <WithNavbar>
@@ -20,11 +18,10 @@ const Budget = () => {
           { id: 1, name: 'Расход', tab: BudgetTabsEnum.OUTCOME },
           { id: 2, name: 'Должники', tab: BudgetTabsEnum.DEBTORS },
         ]}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
       />
+      <div className={styles.container}>{routesStore.budgetRoute}</div>
     </WithNavbar>
   )
 }
 
-export default Budget
+export default observer(Budget)

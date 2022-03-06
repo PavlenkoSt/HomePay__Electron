@@ -1,6 +1,8 @@
-import { Dispatch, FC, SetStateAction } from 'react'
+import { FC } from 'react'
+import { observer } from 'mobx-react-lite'
 
-import { BudgetTabsEnum } from 'renderer/pages/Budget'
+import { useStore } from 'renderer/store'
+import { BudgetTabsEnum } from 'renderer/types/routesTypes'
 
 import styles from './Subbar.module.scss'
 
@@ -12,18 +14,18 @@ type RouteType = {
 
 type SubbarPropsType = {
   tabs: RouteType[]
-  activeTab: BudgetTabsEnum
-  setActiveTab: Dispatch<SetStateAction<BudgetTabsEnum>>
 }
 
-const Subbar: FC<SubbarPropsType> = ({ tabs, activeTab, setActiveTab }) => {
+const Subbar: FC<SubbarPropsType> = ({ tabs }) => {
+  const { routesStore } = useStore()
+
   return (
     <div className={styles.subbar}>
       {tabs.map((tab) => (
         <div
           key={tab.id}
-          onClick={() => setActiveTab(tab.tab)}
-          className={`${styles.route} ${activeTab === tab.tab && styles.active}`}
+          onClick={() => routesStore.setBudgetRoute(tab.tab)}
+          className={`${styles.route} ${routesStore.budgetRoute === tab.tab && styles.active}`}
         >
           {tab.name}
         </div>
@@ -32,4 +34,4 @@ const Subbar: FC<SubbarPropsType> = ({ tabs, activeTab, setActiveTab }) => {
   )
 }
 
-export default Subbar
+export default observer(Subbar)
