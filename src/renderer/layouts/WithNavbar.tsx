@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
-import Navbar from 'renderer/components/Navbar'
-
+import Navbar from 'renderer/components/Navbars/Navbar'
 
 const WithNavbar: FC = ({ children }) => {
   return (

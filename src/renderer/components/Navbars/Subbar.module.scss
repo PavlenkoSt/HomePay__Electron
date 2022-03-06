@@ -1,0 +1,28 @@
+.subbar {
+  display: flex;
+  box-shadow: 0 4px 2px #333;
+}
+
+.route {
+  text-decoration: none;
+  box-shadow: 0 0 0 3px #e9e9e9;
+  background-color: #ffb005;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  margin-top: 5px;
+  cursor: pointer;
+  color: #fff;
+  flex: 1;
+  text-transform: uppercase;
+  font-weight: 700;
+
+  &:hover {
+    background-color: #eea300;
+  }
+  &.active {
+    background-color: #333;
+    color: #eea300;
+  }
+}
