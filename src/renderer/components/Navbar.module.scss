@@ -1,0 +1,29 @@
+.navbar {
+  background-color: #ffb005;
+  box-shadow: 0 1px 2px #333;
+  height: 50px;
+  display: flex;
+}
+
+.item {
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 18;
+  font-size: 15px;
+  text-decoration: none;
+  padding: 0 20px;
+  font-weight: 700;
+  height: 50px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #eea300;
+  }
+  &.active {
+    background-color: #333;
+    color: #eea300;
+  }
+}
