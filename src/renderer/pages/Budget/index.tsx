@@ -5,8 +5,14 @@ import WithNavbar from 'renderer/layouts/WithNavbar'
 import { useStore } from 'renderer/store'
 import { BudgetTabsEnum } from 'renderer/types/routesTypes'
 
+import Debtors from './Debtors'
+import Incomes from './Incomes'
+import Outcomes from './Outcomes'
+
 const Budget = () => {
   const { routesStore } = useStore()
+
+  const { budgetRoute, setBudgetRoute } = routesStore
 
   return (
     <WithNavbar>
@@ -16,10 +22,14 @@ const Budget = () => {
           { id: 1, name: 'Расход', tab: BudgetTabsEnum.OUTCOME },
           { id: 2, name: 'Должники', tab: BudgetTabsEnum.DEBTORS },
         ]}
-        action={routesStore.setBudgetRoute}
-        route={routesStore.budgetRoute}
+        action={setBudgetRoute}
+        route={budgetRoute}
       />
-      <div className="container">{routesStore.budgetRoute}</div>
+      <div className="container">
+        {budgetRoute === BudgetTabsEnum.INCOME && <Incomes />}
+        {budgetRoute === BudgetTabsEnum.OUTCOME && <Outcomes />}
+        {budgetRoute === BudgetTabsEnum.DEBTORS && <Debtors />}
+      </div>
     </WithNavbar>
   )
 }
