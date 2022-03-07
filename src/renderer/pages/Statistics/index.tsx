@@ -5,8 +5,6 @@ import WithNavbar from 'renderer/layouts/WithNavbar'
 import { useStore } from 'renderer/store'
 import { StatisticsTabsEnum } from 'renderer/types/routesTypes'
 
-import styles from './styles.module.scss'
-
 const Statistics = () => {
   const { routesStore } = useStore()
 
@@ -20,7 +18,7 @@ const Statistics = () => {
         action={routesStore.setStatisticsRoute}
         route={routesStore.statisticsRoute}
       />
-      <div className={styles.container}>{routesStore.statisticsRoute}</div>
+      <div className="container">{routesStore.statisticsRoute}</div>
     </WithNavbar>
   )
 }

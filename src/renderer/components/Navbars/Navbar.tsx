@@ -9,6 +9,7 @@ const Navbar = () => {
       { id: 0, name: 'Главная', to: '/' },
       { id: 1, name: 'Бюджет', to: '/budget' },
       { id: 2, name: 'Статистика', to: '/statistics' },
+      { id: 3, name: 'Склад', to: '/stock' },
     ],
     []
   )

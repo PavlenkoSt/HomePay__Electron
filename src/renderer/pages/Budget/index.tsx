@@ -5,8 +5,6 @@ import WithNavbar from 'renderer/layouts/WithNavbar'
 import { useStore } from 'renderer/store'
 import { BudgetTabsEnum } from 'renderer/types/routesTypes'
 
-import styles from './styles.module.scss'
-
 const Budget = () => {
   const { routesStore } = useStore()
 
@@ -21,7 +19,7 @@ const Budget = () => {
         action={routesStore.setBudgetRoute}
         route={routesStore.budgetRoute}
       />
-      <div className={styles.container}>{routesStore.budgetRoute}</div>
+      <div className="container">{routesStore.budgetRoute}</div>
     </WithNavbar>
   )
 }

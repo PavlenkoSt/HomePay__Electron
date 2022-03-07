@@ -1,11 +1,11 @@
-import { StatisticsTabsEnum } from './../types/routesTypes'
 import { action, makeAutoObservable, observable } from 'mobx'
 
-import { BudgetTabsEnum } from 'renderer/types/routesTypes'
+import { BudgetTabsEnum, StatisticsTabsEnum, StockTabsEnum } from 'renderer/types/routesTypes'
 
 class RoutesStore {
   @observable budgetRoute = BudgetTabsEnum.INCOME
   @observable statisticsRoute = StatisticsTabsEnum.JOURNAL
+  @observable stockRoute = StockTabsEnum.STOCK_LIST
 
   constructor() {
     makeAutoObservable(this)
@@ -17,6 +17,10 @@ class RoutesStore {
 
   @action setStatisticsRoute = (route: StatisticsTabsEnum) => {
     this.statisticsRoute = route
+  }
+
+  @action setStockRoute = (route: StockTabsEnum) => {
+    this.stockRoute = route
   }
 }
 
