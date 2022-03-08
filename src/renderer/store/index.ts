@@ -1,12 +1,14 @@
 import { configure, observable } from 'mobx'
 import { createContext, useContext } from 'react'
 
+import ProductsStore from './productsStore'
 import routesStore from './routesStore'
 
 configure({ enforceActions: 'observed' })
 
 class RootStore {
   @observable routesStore = new routesStore()
+  @observable productsStore = new ProductsStore()
 }
 
 const rootStore = new RootStore()
