@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
-import { useStore } from 'renderer/store'
-import Category from './Category'
 
-import styles from './styles.module.scss'
+import { useStore } from 'renderer/store'
+
+import Category from './Category'
 
 const StockList = () => {
   const { productsStore } = useStore()
@@ -14,7 +14,8 @@ const StockList = () => {
 
   return (
     <div>
-      <div className={styles.list}>
+      <div>
+        <h2 className="title">Категории</h2>
         {productsStore.categories.map((category) => (
           <Category key={category.id} category={category} />
         ))}
