@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 
 import { useStore } from 'renderer/store'
+import AddCategory from './AddCategory'
 
 import Category from './Category'
 
@@ -19,6 +20,7 @@ const StockList = () => {
         {productsStore.categories.map((category) => (
           <Category key={category.id} category={category} />
         ))}
+        <AddCategory />
       </div>
     </div>
   )
