@@ -11,12 +11,15 @@ type CategoryPropsType = {
 }
 
 const Category: FC<CategoryPropsType> = ({ category }) => {
-  const positions = numWord(category.productsCount, ['позиция', 'позиции', 'позиций'])
+  const { productsCount, name } = category
+
+  const positions =
+    productsCount > 0 ? numWord(productsCount, ['позиция', 'позиции', 'позиций']) : ''
 
   return (
     <div className={styles.category}>
-      <h3 className={styles.categoryName}>{category.name}</h3>
-      <span className={styles.categoryCount}>{`(${category.productsCount} ${positions})`}</span>
+      <h3 className={styles.categoryName}>{name}</h3>
+      <span className={styles.categoryCount}>{`(${productsCount} ${positions})`}</span>
     </div>
   )
 }

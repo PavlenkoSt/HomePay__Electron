@@ -2,9 +2,10 @@ import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 
 import { useStore } from 'renderer/store'
-import AddCategory from './AddCategory'
 
 import Category from './Category'
+
+import styles from './styles.module.scss'
 
 const StockList = () => {
   const { productsStore } = useStore()
@@ -20,7 +21,9 @@ const StockList = () => {
         {productsStore.categories.map((category) => (
           <Category key={category.id} category={category} />
         ))}
-        <AddCategory />
+        <div className={styles.categoryWrapper}>
+          <button className={styles.addCategory}>+</button>
+        </div>
       </div>
     </div>
   )
