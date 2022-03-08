@@ -1,9 +1,11 @@
 import { observer } from 'mobx-react-lite'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import AddBtn from 'renderer/components/Btns/AddBtn'
 
 import { useStore } from 'renderer/store'
 
 import Category from './Category'
+import CategoryModal from './CategoryModal'
 
 import styles from './styles.module.scss'
 
@@ -14,6 +16,8 @@ const StockList = () => {
     productsStore.init()
   }, [])
 
+  const [addModal, setAddModal] = useState(false)
+
   return (
     <div>
       <div>
@@ -22,8 +26,9 @@ const StockList = () => {
           <Category key={category.id} category={category} />
         ))}
         <div className={styles.categoryWrapper}>
-          <button className={styles.addCategory}>+</button>
+          <AddBtn action={() => setAddModal(true)} />
         </div>
+        <CategoryModal visible={addModal} setVisible={setAddModal} />
       </div>
     </div>
   )
