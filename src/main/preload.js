@@ -1,4 +1,5 @@
 const { contextBridge, ipcRenderer } = require('electron')
+const { STORE_GET, STORE_SET } = require('../constants.js')
 
 contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {
@@ -18,6 +19,14 @@ contextBridge.exposeInMainWorld('electron', {
         // Deliberately strip event as it includes `sender`
         ipcRenderer.once(channel, (event, ...args) => func(...args))
       }
+    },
+  },
+  store: {
+    get(val) {
+      return ipcRenderer.sendSync(STORE_GET, val)
+    },
+    set(property, val) {
+      ipcRenderer.send(STORE_SET, property, val)
     },
   },
 })
