@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite'
 import { useEffect, useState } from 'react'
-import AddBtn from 'renderer/components/Btns/AddBtn'
 
 import { useStore } from 'renderer/store'
 
 import Category from './Category'
 import CategoryModal from './CategoryModal'
+import AddBtn from 'renderer/components/Btns/AddBtn'
 
 import styles from './styles.module.scss'
 
