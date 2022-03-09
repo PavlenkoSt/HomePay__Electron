@@ -85,12 +85,7 @@
     },
     "extraResources": [
       "./assets/**"
-    ],
-    "publish": {
-      "provider": "github",
-      "owner": "HomePay",
-      "repo": "HomePay"
-    }
+    ]
   },
   "license": "MIT",
   "keywords": [
