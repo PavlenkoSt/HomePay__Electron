@@ -1,3 +1,4 @@
+import IProduct from 'renderer/types/IProduct'
 import ICategory from 'renderer/types/ICategory'
 
 enum ProductsApiKeys {
@@ -15,6 +16,9 @@ const productsApi = {
   addCategories: () => {},
   getProducts: () => {
     return window.electron.store.get(ProductsApiKeys.PRODUCTS)
+  },
+  setProducts: (products: IProduct[]) => {
+    window.electron.store.set(ProductsApiKeys.PRODUCTS, products)
   },
   addProduct: () => {},
   editProduct: () => {},

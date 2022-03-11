@@ -23,13 +23,19 @@ class ProductsStore {
 
   @action init() {
     const categories = productsApi.getCategories()
+    const products = productsApi.getProducts()
 
     // need check
     if (!categories) {
       productsApi.setCategories([])
     }
 
+    if (!products) {
+      productsApi.setProducts([])
+    }
+
     this.setCategories(categories)
+    this.setProducts(products)
   }
 }
 

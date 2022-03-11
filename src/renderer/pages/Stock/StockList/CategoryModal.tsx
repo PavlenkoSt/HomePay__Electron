@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
 import Button from 'renderer/components/Btns/Button'
 import Input from 'renderer/components/Form/Input'
 
@@ -13,9 +13,14 @@ type CategoryModalPropsType = {
 
 const CategoryModal: FC<CategoryModalPropsType> = ({ visible, setVisible }) => {
   const [name, setName] = useState('')
-  const [count, setCount] = useState('')
 
   const [nameErr, setNameErr] = useState(false)
+
+  const create = useCallback(() => {
+    if (!name) {
+      
+    }
+  }, [])
 
   return (
     <ModalWrapper
@@ -23,7 +28,6 @@ const CategoryModal: FC<CategoryModalPropsType> = ({ visible, setVisible }) => {
       close={() => {
         setVisible(false)
         setName('')
-        setCount('')
       }}
     >
       <h2 className="title">Новая категория</h2>
@@ -35,9 +39,8 @@ const CategoryModal: FC<CategoryModalPropsType> = ({ visible, setVisible }) => {
           error={nameErr}
           errorMessage="Введите название"
         />
-        <Input value={count} setValue={setCount} label="Количество" type="number" />
         <div className={styles.btnContainer}>
-          <Button>Создать</Button>
+          <Button action={create}>Создать</Button>
         </div>
       </div>
     </ModalWrapper>
