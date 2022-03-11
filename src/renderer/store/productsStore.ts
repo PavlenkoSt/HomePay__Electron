@@ -17,6 +17,13 @@ class ProductsStore {
     this.categories = categories
   }
 
+  @action addCategory(category: ICategory) {
+    const categories = [...this.categories, category]
+    console.log('categories', this.categories)
+    this.setCategories(categories)
+    // productsApi.setCategories(categories)
+  }
+
   @action setProducts(products: IProduct[]) {
     this.products = products
   }

@@ -19,7 +19,7 @@ const Category: FC<CategoryPropsType> = ({ category }) => {
     <div className={styles.category}>
       <h3 className={styles.categoryName}>{name}</h3>
       <span className={styles.categoryCount}>
-        {!!productsCount ? `(${productsCount} ${positions})` : 'пока нет позиций'}
+        {!!productsCount ? `(${productsCount} ${positions})` : '(пока нет позиций)'}
       </span>
     </div>
   )

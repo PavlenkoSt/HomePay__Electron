@@ -13,14 +13,12 @@ const productsApi = {
   setCategories: (categories: ICategory[]) => {
     window.electron.store.set(ProductsApiKeys.CATEGORIES, categories)
   },
-  addCategories: () => {},
   getProducts: () => {
     return window.electron.store.get(ProductsApiKeys.PRODUCTS)
   },
   setProducts: (products: IProduct[]) => {
     window.electron.store.set(ProductsApiKeys.PRODUCTS, products)
   },
-  addProduct: () => {},
   editProduct: () => {},
   removeProduct: () => {},
 }

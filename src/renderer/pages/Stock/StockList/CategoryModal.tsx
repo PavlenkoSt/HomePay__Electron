@@ -1,8 +1,11 @@
+import { observer } from 'mobx-react-lite'
 import { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
+
 import Button from 'renderer/components/Btns/Button'
 import Input from 'renderer/components/Form/Input'
-
 import ModalWrapper from 'renderer/components/ModalWrapper'
+import ToastService from 'renderer/services/ToastService'
+import { useStore } from 'renderer/store'
 
 import styles from './styles.module.scss'
 
@@ -16,16 +19,40 @@ const CategoryModal: FC<CategoryModalPropsType> = ({ visible, setVisible }) => {
 
   const [nameErr, setNameErr] = useState(false)
 
+  const { productsStore } = useStore()
+
   const create = useCallback(() => {
     if (!name) {
-      
+      setNameErr(true)
+      return ToastService.showError('Ошибка')
     }
-  }, [])
+
+    productsStore.addCategory({
+      id: Date.now(),
+      name: name,
+      productsCount: 0,
+    })
+
+    setVisible(false)
+    setName('')
+
+    ToastService.showSuccess('Категория успешно добавлена')
+
+    return
+  }, [name])
+
+  const nameHandler = (name: string) => {
+    setName(name)
+    if (name) {
+      setNameErr(false)
+    }
+  }
 
   return (
     <ModalWrapper
       visible={visible}
       close={() => {
+        setNameErr(false)
         setVisible(false)
         setName('')
       }}
@@ -34,9 +61,9 @@ const CategoryModal: FC<CategoryModalPropsType> = ({ visible, setVisible }) => {
       <div className={styles.form}>
         <Input
           value={name}
-          setValue={setName}
-          label="Название"
+          setValue={nameHandler}
           error={nameErr}
+          label="Название"
           errorMessage="Введите название"
         />
         <div className={styles.btnContainer}>
@@ -47,4 +74,4 @@ const CategoryModal: FC<CategoryModalPropsType> = ({ visible, setVisible }) => {
   )
 }
 
-export default CategoryModal
+export default observer(CategoryModal)
