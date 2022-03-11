@@ -1,6 +1,6 @@
 import styles from './CloseBtn.module.scss'
 
-import sda from 'renderer/assets/close.svg'
+import closePic from 'renderer/assets/close.svg'
 import { Dispatch, FC, SetStateAction } from 'react'
 
 type CloseBtnPropsType = {
@@ -10,7 +10,7 @@ type CloseBtnPropsType = {
 const CloseBtn: FC<CloseBtnPropsType> = ({ setVisible }) => {
   return (
     <div className={styles.btn} onClick={() => setVisible(false)}>
-      <img src={sda} />
+      <img src={closePic} />
     </div>
   )
 }

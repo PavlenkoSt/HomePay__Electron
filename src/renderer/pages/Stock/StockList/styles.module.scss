@@ -31,6 +31,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 10px;
+  gap: 10px;
 }
 
 .form {
@@ -41,4 +42,26 @@
   margin-top: 80px;
   display: flex;
   justify-content: center;
+}
+
+.allProductsBtn {
+  background-color: #ff8a05;
+  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  font-size: 30px;
+  border: 1px solid rgb(255, 123, 0);
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: #ffb005;
+    color: #fff;
+  }
 }

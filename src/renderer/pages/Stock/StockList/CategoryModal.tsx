@@ -41,12 +41,12 @@ const CategoryModal: FC<CategoryModalPropsType> = ({ visible, setVisible }) => {
     return
   }, [name])
 
-  const nameHandler = (name: string) => {
+  const nameHandler = useCallback((name: string) => {
     setName(name)
     if (name) {
       setNameErr(false)
     }
-  }
+  }, [])
 
   return (
     <ModalWrapper
