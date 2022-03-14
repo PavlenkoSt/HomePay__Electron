@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useStore } from 'renderer/store'
 
 import Category from './Category'
-import CategoryModal from './CategoryModal'
+import CategoryModal from './Category/CategoryModal'
 import AddBtn from 'renderer/components/Btns/AddBtn'
 
 import styles from './styles.module.scss'

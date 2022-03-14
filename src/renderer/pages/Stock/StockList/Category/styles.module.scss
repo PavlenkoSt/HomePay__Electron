@@ -1,0 +1,53 @@
+.category {
+  display: flex;
+  gap: 5px;
+  border-radius: 5px;
+  border: 1px solid #c2c2c2;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  margin-bottom: 5px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    background-color: #333;
+    color: #fff;
+
+    & .removeBtnContainer {
+      transform: translateX(0);
+    }
+  }
+}
+
+.categoryName {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.categoryCount {
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.form {
+  margin-top: 50px;
+}
+
+.btnContainer {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.removeBtnContainer {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  transform: translateX(30px);
+  transition: transform 0.3s ease;
+}

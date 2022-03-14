@@ -1,30 +1,3 @@
-.category {
-  display: flex;
-  gap: 5px;
-  border-radius: 5px;
-  border: 1px solid #c2c2c2;
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff;
-  margin-bottom: 5px;
-  transition: background-color 0.2s ease, color 0.2s ease;
-
-  &:hover {
-    background-color: #333;
-    color: #fff;
-  }
-}
-
-.categoryName {
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.categoryCount {
-  font-size: 14px;
-  font-style: italic;
-  font-weight: 500;
-}
 
 .categoryWrapper {
   display: flex;
@@ -32,16 +5,6 @@
   justify-content: center;
   margin-top: 10px;
   gap: 10px;
-}
-
-.form {
-  margin-top: 80px;
-}
-
-.btnContainer {
-  margin-top: 80px;
-  display: flex;
-  justify-content: center;
 }
 
 .allProductsBtn {
