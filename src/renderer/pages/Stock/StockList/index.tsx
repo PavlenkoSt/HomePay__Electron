@@ -1,5 +1,5 @@
-import { observer } from 'mobx-react-lite'
 import { useEffect, useState } from 'react'
+import { observer } from 'mobx-react-lite'
 
 import { useStore } from 'renderer/store'
 
@@ -22,7 +22,7 @@ const StockList = () => {
   return (
     <div>
       <div>
-        <h2 className="title">Категории</h2>
+        <h2 className="title">Категории ({productsStore.categories.length})</h2>
         {productsStore.categories.map((category) => (
           <Category key={category.id} category={category} />
         ))}

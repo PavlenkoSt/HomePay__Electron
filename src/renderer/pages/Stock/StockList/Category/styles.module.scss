@@ -52,11 +52,22 @@
   align-items: center;
   justify-content: center;
   transform: translateX(30px);
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .btnsRemoveModal {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.bodyRemoveModal {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.checkboxesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

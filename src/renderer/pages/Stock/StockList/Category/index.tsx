@@ -30,7 +30,7 @@ const Category: FC<CategoryPropsType> = ({ category }) => {
         <img src={closePic} />
       </div>
       {showRemove && (
-        <RemoveCategoryModal visible={showRemove} setVisible={setShowRemove} name={category.name} />
+        <RemoveCategoryModal visible={showRemove} setVisible={setShowRemove} category={category} />
       )}
     </div>
   )

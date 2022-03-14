@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify'
 
 import './App.scss'
 import 'react-toastify/dist/ReactToastify.css'
+import '@djthoms/pretty-checkbox'
 
 const App = () => {
   return (
