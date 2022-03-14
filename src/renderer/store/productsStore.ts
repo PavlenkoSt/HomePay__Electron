@@ -23,6 +23,38 @@ class ProductsStore {
     productsApi.setCategories(categories)
   }
 
+  @action removeCategoryWithAllProducts(categoryId: number) {
+    const categoryProductsId = this.products
+      .filter((product) => product.categoryId === categoryId)
+      .map((product) => product.categoryId)
+
+    this.removeProductMany(categoryProductsId)
+
+    const filteredCategories = this.categories.filter((category) => category.id !== categoryId)
+
+    const resultCategories = JSONCorrect(filteredCategories)
+
+    this.setCategories(resultCategories)
+    productsApi.setCategories(resultCategories)
+  }
+
+  @action removeProductMany(arrayId: number[]) {
+    const filteredProducts = this.products.filter((product) => {
+      for (let i = 0; i < arrayId.length; i++) {
+        if (product.categoryId === arrayId[i]) {
+          return false
+        }
+      }
+
+      return true
+    })
+
+    const products = JSONCorrect(filteredProducts)
+
+    this.setProducts(products)
+    productsApi.setProducts(products)
+  }
+
   @action setProducts(products: IProduct[]) {
     this.products = products
   }

@@ -1,19 +1,13 @@
-import { Dispatch, FC, SetStateAction, useCallback } from 'react'
-import { Radio, useRadioState } from 'pretty-checkbox-react'
+import { Dispatch, FC, SetStateAction } from 'react'
+import { Radio } from 'pretty-checkbox-react'
 import Select from 'react-select'
 
+import useRemoveCategory, { ProductsActionEnum } from 'renderer/hooks/useRemoveCategory'
 import TextButton, { ButtonTypeEnum } from 'renderer/components/Btns/TextButton'
 import ModalWrapper from 'renderer/components/ModalWrapper'
-import { useStore } from 'renderer/store'
 import ICategory from 'renderer/types/ICategory'
 
 import styles from './styles.module.scss'
-
-enum ProductsActionEnum {
-  SAVE = 'SAVE',
-  REMOVE = 'REMOVE',
-  MOVE = 'MOVE',
-}
 
 type RemoveCategoryModalPropsType = {
   visible: boolean
@@ -26,22 +20,11 @@ const RemoveCategoryModal: FC<RemoveCategoryModalPropsType> = ({
   setVisible,
   category,
 }) => {
-  const { state: radioStatus, onChange: onChangeRadio } = useRadioState({
-    state: ProductsActionEnum.REMOVE,
-  })
-
-  const close = useCallback(() => setVisible(false), [])
-  const remove = () => {
-    console.log('removeAllProductsInside', radioStatus)
-  }
-
-  const { productsStore } = useStore()
-
-  const otherCategories = [...productsStore.categories].filter(
-    (categoryStore) => categoryStore.id !== category.id
-  )
-
-  const options = otherCategories.map((cat) => ({ value: cat.id, label: cat.name }))
+  const { close, remove, onChangeRadio, radioStatus, options, otherCategoriesLength } =
+    useRemoveCategory({
+      setVisible,
+      category,
+    })
 
   return (
     <ModalWrapper visible={visible} close={close}>
@@ -80,7 +63,7 @@ const RemoveCategoryModal: FC<RemoveCategoryModalPropsType> = ({
               shape="curve"
               variant="thick"
               color="warning-o"
-              disabled={!otherCategories.length}
+              disabled={!otherCategoriesLength}
             >
               Сохранить товары и переместить в другую категорию
             </Radio>
