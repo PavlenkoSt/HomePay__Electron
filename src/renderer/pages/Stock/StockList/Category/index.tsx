@@ -29,7 +29,9 @@ const Category: FC<CategoryPropsType> = ({ category }) => {
       <div onClick={() => setShowRemove(true)} className={styles.removeBtnContainer}>
         <img src={closePic} />
       </div>
-      {showRemove && <RemoveCategoryModal visible={showRemove} setVisible={setShowRemove} />}
+      {showRemove && (
+        <RemoveCategoryModal visible={showRemove} setVisible={setShowRemove} name={category.name} />
+      )}
     </div>
   )
 }
