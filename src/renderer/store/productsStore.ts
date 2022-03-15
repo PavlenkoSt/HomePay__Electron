@@ -38,7 +38,7 @@ class ProductsStore {
     productsApi.setCategories(resultCategories)
   }
 
-  @action removeProductMany(arrayId: number[]) {
+  @action removeProductMany(arrayId: (number | null)[]) {
     const filteredProducts = this.products.filter((product) => {
       for (let i = 0; i < arrayId.length; i++) {
         if (product.categoryId === arrayId[i]) {
