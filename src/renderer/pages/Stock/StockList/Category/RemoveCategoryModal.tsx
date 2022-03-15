@@ -20,11 +20,18 @@ const RemoveCategoryModal: FC<RemoveCategoryModalPropsType> = ({
   setVisible,
   category,
 }) => {
-  const { close, remove, onChangeRadio, radioStatus, options, otherCategoriesLength } =
-    useRemoveCategory({
-      setVisible,
-      category,
-    })
+  const {
+    close,
+    remove,
+    onChangeRadio,
+    radioStatus,
+    options,
+    otherCategoriesLength,
+    setSelectCatId,
+  } = useRemoveCategory({
+    setVisible,
+    category,
+  })
 
   return (
     <ModalWrapper visible={visible} close={close}>
@@ -45,17 +52,6 @@ const RemoveCategoryModal: FC<RemoveCategoryModalPropsType> = ({
               Удалить все товары внутри
             </Radio>
             <Radio
-              value={ProductsActionEnum.SAVE}
-              state={radioStatus}
-              onChange={onChangeRadio}
-              name="productsAction"
-              shape="curve"
-              variant="thick"
-              color="warning-o"
-            >
-              Сохранить товары и присвоить статус "Без категории"
-            </Radio>
-            <Radio
               value={ProductsActionEnum.MOVE}
               state={radioStatus}
               onChange={onChangeRadio}
@@ -73,6 +69,7 @@ const RemoveCategoryModal: FC<RemoveCategoryModalPropsType> = ({
               noOptionsMessage={() => <div>Нет доступных категорий</div>}
               options={options}
               isSearchable
+              onChange={(option) => option?.value && setSelectCatId(option.value)}
             />
           </div>
         </div>

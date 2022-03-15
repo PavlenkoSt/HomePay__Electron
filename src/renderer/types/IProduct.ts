@@ -6,5 +6,5 @@ export default interface IProduct {
     wholesale: number
   }
   count: number
-  categoryId: number | null
+  categoryId: number
 }

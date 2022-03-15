@@ -23,13 +23,7 @@ class ProductsStore {
     productsApi.setCategories(categories)
   }
 
-  @action removeCategoryWithAllProducts(categoryId: number) {
-    const categoryProductsId = this.products
-      .filter((product) => product.categoryId === categoryId)
-      .map((product) => product.categoryId)
-
-    this.removeProductMany(categoryProductsId)
-
+  @action removeCategory(categoryId: number) {
     const filteredCategories = this.categories.filter((category) => category.id !== categoryId)
 
     const resultCategories = JSONCorrect(filteredCategories)
@@ -38,10 +32,70 @@ class ProductsStore {
     productsApi.setCategories(resultCategories)
   }
 
-  @action removeProductMany(arrayId: (number | null)[]) {
+  @action removeCategoryWithAllProducts(categoryId: number) {
+    const categoryProductsId = this.products
+      .filter((product) => product.categoryId === categoryId)
+      .map((product) => product.categoryId)
+
+    this.removeProductMany(categoryProductsId)
+    this.removeCategory(categoryId)
+  }
+
+  @action removeCategoryWithMoveProducts(categoryId: number, categoryIdMoveTo: number) {
+    const targetProducts = this.products
+      .filter((product) => product.categoryId === categoryId)
+      .map((product) => ({ ...product, categoryId: categoryIdMoveTo }))
+
+    this.moveProductsToOtherCategory(targetProducts)
+    this.plusCategoryProductsCount(categoryIdMoveTo, targetProducts.length)
+    this.removeCategory(categoryId)
+  }
+
+  @action plusCategoryProductsCount(categoryId: number, count: number) {
+    const category = this.categories.find((category) => category.id === categoryId)
+
+    if (!category) return
+
+    category.productsCount += count
+
+    this.saveCategories([category, ...this.categories.filter((cat) => cat.id !== categoryId)])
+  }
+
+  @action moveProductsToOtherCategory(products: IProduct[]) {
+    const ids = products.map((product) => product.id)
+
+    const filteredProducts = this.removeProductsFromListByIdsArr(ids)
+
+    this.saveProducts([...filteredProducts, ...products])
+  }
+
+  @action removeProductMany(arrayId: number[]) {
+    const filteredProducts = this.removeProductsFromListByIdsArr(arrayId)
+    this.saveProducts(filteredProducts)
+  }
+
+  @action saveProducts(productsProxy: IProduct[]) {
+    const products = JSONCorrect(productsProxy)
+
+    this.setProducts(products)
+    productsApi.setProducts(products)
+  }
+
+  @action saveCategories(categoriesProxy: ICategory[]) {
+    const categories = JSONCorrect(categoriesProxy)
+
+    this.setCategories(categories)
+    productsApi.setCategories(categories)
+  }
+
+  @action setProducts(products: IProduct[]) {
+    this.products = products
+  }
+
+  @action removeProductsFromListByIdsArr(idsArr: number[]) {
     const filteredProducts = this.products.filter((product) => {
-      for (let i = 0; i < arrayId.length; i++) {
-        if (product.categoryId === arrayId[i]) {
+      for (let i = 0; i < idsArr.length; i++) {
+        if (product.categoryId === idsArr[i]) {
           return false
         }
       }
@@ -49,14 +103,7 @@ class ProductsStore {
       return true
     })
 
-    const products = JSONCorrect(filteredProducts)
-
-    this.setProducts(products)
-    productsApi.setProducts(products)
-  }
-
-  @action setProducts(products: IProduct[]) {
-    this.products = products
+    return filteredProducts
   }
 
   @action init() {

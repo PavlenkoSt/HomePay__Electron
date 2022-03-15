@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useMemo } from 'react'
+import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react'
 import { useRadioState } from 'pretty-checkbox-react'
 
 import { useStore } from 'renderer/store'
@@ -6,7 +6,6 @@ import ICategory from 'renderer/types/ICategory'
 import ToastService from 'renderer/services/ToastService'
 
 export enum ProductsActionEnum {
-  SAVE = 'SAVE',
   REMOVE = 'REMOVE',
   MOVE = 'MOVE',
 }
@@ -25,6 +24,8 @@ const useRemoveCategory = ({ setVisible, category }: useRemoveCategoryPropsType)
     state: ProductsActionEnum.REMOVE,
   })
 
+  const [selectCatId, setSelectCatId] = useState<number | null>(null)
+
   const close = useCallback(() => {
     setVisible(false)
     setState(ProductsActionEnum.REMOVE)
@@ -36,15 +37,19 @@ const useRemoveCategory = ({ setVisible, category }: useRemoveCategoryPropsType)
       ToastService.showSuccess('Категория успешно удалена вместе c товарами')
     }
 
-    if (radioStatus === ProductsActionEnum.SAVE) {
-    }
-
     if (radioStatus === ProductsActionEnum.MOVE) {
       // here can be an error - no selected category
+
+      if (selectCatId === null) {
+        return ToastService.showError('Выберите категорию для перемещения')
+      }
+
+      productsStore.removeCategoryWithMoveProducts(category.id, selectCatId)
+      ToastService.showSuccess('Категория успешно удалена, а продукты перемещены')
     }
 
-    close()
-  }, [radioStatus, category.id])
+    return close()
+  }, [radioStatus, category.id, selectCatId])
 
   const { productsStore } = useStore()
 
@@ -65,6 +70,7 @@ const useRemoveCategory = ({ setVisible, category }: useRemoveCategoryPropsType)
     close,
     remove,
     otherCategoriesLength: otherCategories.length,
+    setSelectCatId,
   }
 }
 
