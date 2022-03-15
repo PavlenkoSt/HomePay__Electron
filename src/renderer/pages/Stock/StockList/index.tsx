@@ -22,10 +22,16 @@ const StockList = () => {
   return (
     <div>
       <div>
-        <h2 className="title">Категории ({productsStore.categories.length})</h2>
-        {productsStore.categories.map((category) => (
-          <Category key={category.id} category={category} />
-        ))}
+        {productsStore.categories.length ? (
+          <>
+            <h2 className="title">Категории ({productsStore.categories.length})</h2>
+            {productsStore.categories.map((category) => (
+              <Category key={category.id} category={category} />
+            ))}
+          </>
+        ) : (
+          <div className={styles.message}>Категорий пока нет. Добавьте первую.</div>
+        )}
         <div className={styles.categoryWrapper}>
           <AddBtn action={() => setAddModal(true)} title="Добавить категорию" />
           <AllProductsBtn />
