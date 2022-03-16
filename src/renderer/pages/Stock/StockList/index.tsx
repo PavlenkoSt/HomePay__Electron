@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import { useStore } from 'renderer/store'
@@ -8,13 +8,11 @@ import Products from './Products'
 const StockList = () => {
   const { productsStore } = useStore()
 
-  const [activeCategory, setActiveCategory] = useState()
-
   useEffect(() => {
     productsStore.init()
   }, [])
 
-  return <div>{!!activeCategory ? <Products /> : <Categories />}</div>
+  return <div>{!!productsStore.activeCategoryId ? <Products /> : <Categories />}</div>
 }
 
 export default observer(StockList)
