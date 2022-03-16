@@ -9,7 +9,7 @@ import CategoryModal from './CategoryModal'
 
 import styles from './styles.module.scss'
 
-const Category = () => {
+const Categories = () => {
   const { productsStore } = useStore()
 
   const [addModal, setAddModal] = useState(false)
@@ -35,4 +35,4 @@ const Category = () => {
   )
 }
 
-export default observer(Category)
+export default observer(Categories)
