@@ -1,0 +1,25 @@
+.btn {
+  background-color: #ffb005;
+  display: inline-flex;
+  border-radius: 10px;
+  padding: 5px 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  align-items: center;
+  border: 1px solid #ff7e05;
+
+  &:hover {
+    background-color: #ff9305;
+  }
+}
+
+.btnText {
+  color: #fff;
+  font-size: 14px;
+}
+
+.pic {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
