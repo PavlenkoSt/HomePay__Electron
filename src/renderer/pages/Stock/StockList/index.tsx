@@ -1,14 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import { useStore } from 'renderer/store'
-
 import Category from './Category'
-import CategoryModal from './Category/CategoryModal'
-import AddBtn from 'renderer/components/Btns/AddBtn'
-
-import styles from './styles.module.scss'
-import AllProductsBtn from './AllProductsBtn'
 
 const StockList = () => {
   const { productsStore } = useStore()
@@ -17,27 +11,9 @@ const StockList = () => {
     productsStore.init()
   }, [])
 
-  const [addModal, setAddModal] = useState(false)
-
   return (
     <div>
-      <div>
-        {productsStore.categories.length ? (
-          <>
-            <h2 className="title">Категории ({productsStore.categories.length})</h2>
-            {productsStore.categories.map((category) => (
-              <Category key={category.id} category={category} />
-            ))}
-          </>
-        ) : (
-          <div className={styles.message}>Категорий пока нет. Добавьте первую.</div>
-        )}
-        <div className={styles.categoryWrapper}>
-          <AddBtn action={() => setAddModal(true)} title="Добавить категорию" />
-          <AllProductsBtn />
-        </div>
-        <CategoryModal visible={addModal} setVisible={setAddModal} />
-      </div>
+      <Category />
     </div>
   )
 }

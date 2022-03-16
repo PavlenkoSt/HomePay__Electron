@@ -1,37 +1,36 @@
-import { FC, useState } from 'react'
 import { observer } from 'mobx-react-lite'
+import { useState } from 'react'
 
-import ICategory from 'renderer/types/ICategory'
-import numWord from 'renderer/helpers/numWord'
+import AddBtn from 'renderer/components/Btns/AddBtn'
+import { useStore } from 'renderer/store'
+import AllProductsBtn from './AllProductsBtn'
+import CategoryItem from './CategoryItem'
+import CategoryModal from './CategoryModal'
 
 import styles from './styles.module.scss'
 
-import closePic from 'renderer/assets/close.svg'
-import RemoveCategoryModal from './RemoveCategoryModal'
+const Category = () => {
+  const { productsStore } = useStore()
 
-type CategoryPropsType = {
-  category: ICategory
-}
-
-const Category: FC<CategoryPropsType> = ({ category }) => {
-  const { productsCount, name } = category
-
-  const positions = numWord(productsCount, ['позиция', 'позиции', 'позиций'])
-
-  const [showRemove, setShowRemove] = useState(false)
+  const [addModal, setAddModal] = useState(false)
 
   return (
-    <div className={styles.category}>
-      <h3 className={styles.categoryName}>{name}</h3>
-      <span className={styles.categoryCount}>
-        {!!productsCount ? `(${productsCount} ${positions})` : '(пока нет позиций)'}
-      </span>
-      <div onClick={() => setShowRemove(true)} className={styles.removeBtnContainer}>
-        <img src={closePic} />
-      </div>
-      {showRemove && (
-        <RemoveCategoryModal visible={showRemove} setVisible={setShowRemove} category={category} />
+    <div>
+      {productsStore.categories.length ? (
+        <>
+          <h2 className="title">Категории ({productsStore.categories.length})</h2>
+          {productsStore.categories.map((category) => (
+            <CategoryItem key={category.id} category={category} />
+          ))}
+        </>
+      ) : (
+        <div className={styles.message}>Категорий пока нет. Добавьте первую.</div>
       )}
+      <div className={styles.categoryWrapper}>
+        <AddBtn action={() => setAddModal(true)} title="Добавить категорию" />
+        <AllProductsBtn />
+      </div>
+      <CategoryModal visible={addModal} setVisible={setAddModal} />
     </div>
   )
 }

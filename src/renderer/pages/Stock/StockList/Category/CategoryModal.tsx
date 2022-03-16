@@ -7,7 +7,7 @@ import ModalWrapper from 'renderer/components/ModalWrapper'
 import ToastService from 'renderer/services/ToastService'
 import { useStore } from 'renderer/store'
 
-import styles from './styles.module.scss'
+import styles from './CategoryModal.module.scss'
 
 type CategoryModalPropsType = {
   visible: boolean

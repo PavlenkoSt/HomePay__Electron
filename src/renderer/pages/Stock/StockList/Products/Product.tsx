@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import IProduct from 'renderer/types/IProduct'
 
 type ProductPropsType = {

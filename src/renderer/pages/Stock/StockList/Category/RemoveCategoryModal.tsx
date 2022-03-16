@@ -7,7 +7,7 @@ import TextButton, { ButtonTypeEnum } from 'renderer/components/Btns/TextButton'
 import ModalWrapper from 'renderer/components/ModalWrapper'
 import ICategory from 'renderer/types/ICategory'
 
-import styles from './styles.module.scss'
+import styles from './RemoveCategoryModal.module.scss'
 
 type RemoveCategoryModalPropsType = {
   visible: boolean
@@ -37,8 +37,8 @@ const RemoveCategoryModal: FC<RemoveCategoryModalPropsType> = ({
     <ModalWrapper visible={visible} close={close}>
       <div>
         <h2 className="title">Удаление категории - {category.name}</h2>
-        <div className={styles.bodyRemoveModal}>
-          <div className={styles.checkboxesContainer}>
+        <div className={styles.body}>
+          <div className={styles.checkboxes}>
             <Radio
               value={ProductsActionEnum.REMOVE}
               state={radioStatus}
@@ -73,7 +73,7 @@ const RemoveCategoryModal: FC<RemoveCategoryModalPropsType> = ({
             />
           </div>
         </div>
-        <div className={styles.btnsRemoveModal}>
+        <div className={styles.btns}>
           <TextButton type={ButtonTypeEnum.PRIMARY} onClick={close}>
             Отмена
           </TextButton>
