@@ -8,13 +8,13 @@ import IProduct from 'renderer/types/IProduct'
 class ProductsStore {
   @observable categories: ICategory[] = []
   @observable products: IProduct[] = []
-  @observable activeCategoryId: number | null = null
+  @observable activeCategoryId: number | null | 'all-products' = null
 
   constructor() {
     makeAutoObservable(this)
   }
 
-  @action setActiveCategoryId(categoryId: number | null) {
+  @action setActiveCategoryId(categoryId: number | null | 'all-products') {
     this.activeCategoryId = categoryId
   }
 
