@@ -59,7 +59,7 @@ const RemoveCategoryModal: FC<RemoveCategoryModalPropsType> = ({
               shape="curve"
               variant="thick"
               color="warning-o"
-              disabled={!otherCategoriesLength}
+              disabled={!otherCategoriesLength || category.productsCount === 0}
             >
               Сохранить товары и переместить в другую категорию
             </Radio>

@@ -9,6 +9,7 @@ import { useStore } from 'renderer/store'
 import styles from './CategoryItem.module.scss'
 
 import closePic from 'renderer/assets/close.svg'
+import editPic from 'renderer/assets/edit.svg'
 
 type CategoryPropsType = {
   category: ICategory
@@ -34,6 +35,17 @@ const CategoryItem: FC<CategoryPropsType> = ({ category }) => {
           {!!productsCount ? `(${productsCount} ${positions})` : '(пока нет позиций)'}
         </span>
         <div
+          title="Редактировать"
+          onClick={(e) => {
+            e.stopPropagation()
+            // editModal
+          }}
+          className={styles.editBtn}
+        >
+          <img className={styles.icon} src={editPic} />
+        </div>
+        <div
+          title="Удалить"
           onClick={(e) => {
             e.stopPropagation()
             setShowRemove(true)
