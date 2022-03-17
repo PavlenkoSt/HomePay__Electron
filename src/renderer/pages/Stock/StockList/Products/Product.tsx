@@ -1,8 +1,11 @@
 import { FC } from 'react'
+import { observer } from 'mobx-react-lite'
 
 import IProduct from 'renderer/types/IProduct'
 
 import styles from './Product.module.scss'
+
+import optionsPic from 'renderer/assets/options.svg'
 
 type ProductPropsType = {
   product: IProduct
@@ -17,11 +20,13 @@ const Product: FC<ProductPropsType> = ({ product }) => {
       <td>{product.price.margin.value}</td>
       <td>{product.price.margin.percent}</td>
       <td>{product.count}</td>
-      <td>
-        <button>action</button>
+      <td className={styles.action}>
+        <div className={styles.btn}>
+          <img className={styles.pic} src={optionsPic} />
+        </div>
       </td>
     </tr>
   )
 }
 
-export default Product
+export default observer(Product)

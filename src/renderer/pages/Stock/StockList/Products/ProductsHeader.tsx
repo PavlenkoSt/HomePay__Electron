@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite'
 
+import numWord from 'renderer/helpers/numWord'
 import { useStore } from 'renderer/store'
 
 import styles from './ProductsHeader.module.scss'
 
 import backArrow from 'renderer/assets/arrow.svg'
-import numWord from 'renderer/helpers/numWord'
 
 const ProductsHeader = () => {
   const { productsStore } = useStore()

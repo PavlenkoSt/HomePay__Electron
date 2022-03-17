@@ -129,12 +129,17 @@ class ProductsStore {
   }
 
   @computed activeCategoryName() {
-    return this.categories.find((category) => category.id === this.activeCategoryId)?.name || ''
+    return (
+      this.categories.find((category) => category.id === this.activeCategoryId)?.name ||
+      'Все товары'
+    )
   }
 
   @computed activeCategoryCount() {
     return (
-      this.categories.find((category) => category.id === this.activeCategoryId)?.productsCount || 0
+      this.categories.find((category) => category.id === this.activeCategoryId)?.productsCount ||
+      this.products.length ||
+      0
     )
   }
 }

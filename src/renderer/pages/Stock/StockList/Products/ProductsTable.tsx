@@ -8,6 +8,10 @@ import styles from './ProductsTable.module.scss'
 const ProductsTable = () => {
   const { productsStore } = useStore()
 
+  const sortedProducts = productsStore.products
+    .slice()
+    .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
+
   return (
     //@ts-ignore
     <table className={styles.table} border="1" cellPadding={4} cellSpacing={0}>
@@ -42,7 +46,7 @@ const ProductsTable = () => {
         </tr>
       </thead>
       <tbody>
-        {productsStore.products.map((product) => (
+        {sortedProducts.map((product) => (
           <Product product={product} key={product.id} />
         ))}
       </tbody>
