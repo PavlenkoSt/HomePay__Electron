@@ -5,9 +5,12 @@ import { useStore } from 'renderer/store'
 import styles from './ProductsHeader.module.scss'
 
 import backArrow from 'renderer/assets/arrow.svg'
+import numWord from 'renderer/helpers/numWord'
 
 const ProductsHeader = () => {
   const { productsStore } = useStore()
+
+  const productsCount = numWord(productsStore.activeCategoryCount(), ['товар', 'товара', 'товаров'])
 
   return (
     <div className={styles.header}>
@@ -16,7 +19,9 @@ const ProductsHeader = () => {
         <span className={styles.btnText}>К категориям</span>
       </div>
       <div>/</div>
-      <div className={styles.category}>{productsStore.activeCategoryName()}</div>
+      <div
+        className={styles.category}
+      >{`${productsStore.activeCategoryName()} (${productsStore.activeCategoryCount()} ${productsCount})`}</div>
     </div>
   )
 }

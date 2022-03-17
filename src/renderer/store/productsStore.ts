@@ -131,6 +131,12 @@ class ProductsStore {
   @computed activeCategoryName() {
     return this.categories.find((category) => category.id === this.activeCategoryId)?.name || ''
   }
+
+  @computed activeCategoryCount() {
+    return (
+      this.categories.find((category) => category.id === this.activeCategoryId)?.productsCount || 0
+    )
+  }
 }
 
 export default ProductsStore

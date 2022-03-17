@@ -4,6 +4,10 @@ export default interface IProduct {
   price: {
     retail: number
     wholesale: number
+    margin: {
+      value: number
+      percent: number
+    }
   }
   count: number
   categoryId: number
