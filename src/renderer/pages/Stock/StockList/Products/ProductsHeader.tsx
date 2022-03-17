@@ -10,11 +10,13 @@ const ProductsHeader = () => {
   const { productsStore } = useStore()
 
   return (
-    <div>
+    <div className={styles.header}>
       <div className={styles.btn} onClick={() => productsStore.setActiveCategoryId(null)}>
         <img src={backArrow} className={styles.pic} />
         <span className={styles.btnText}>К категориям</span>
       </div>
+      <div>/</div>
+      <div className={styles.category}>{productsStore.activeCategoryName()}</div>
     </div>
   )
 }

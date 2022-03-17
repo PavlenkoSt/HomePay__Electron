@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, observable } from 'mobx'
+import { action, computed, makeAutoObservable, observable } from 'mobx'
 
 import JSONCorrect from 'renderer/helpers/JSONCorrect'
 import productsApi from 'renderer/api/products.api'
@@ -126,6 +126,10 @@ class ProductsStore {
 
     this.setCategories(categories)
     this.setProducts(products)
+  }
+
+  @computed activeCategoryName() {
+    return this.categories.find((category) => category.id === this.activeCategoryId)?.name || ''
   }
 }
 
