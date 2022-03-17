@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
-import { useStore } from 'renderer/store'
 
+import { useStore } from 'renderer/store'
 import Product from './Product'
 
 import styles from './ProductsTable.module.scss'
@@ -16,25 +16,28 @@ const ProductsTable = () => {
           <th rowSpan={2}>Название</th>
           <th colSpan={2}>Цена</th>
           <th colSpan={2}>Наценка</th>
-          <th rowSpan={2}>На складе</th>
+          <th rowSpan={2}>
+            <div>На складе</div>
+            <div className={styles.rate}>(шт)</div>
+          </th>
           <th rowSpan={2}>Действие</th>
         </tr>
         <tr>
           <th>
             <div>Закупочная</div>
-            <div>(грн)</div>
+            <div className={styles.rate}>(грн)</div>
           </th>
           <th>
             <div>Продажная</div>
-            <div>(грн)</div>
+            <div className={styles.rate}>(грн)</div>
           </th>
           <th>
             <div>Валюта</div>
-            <div>(грн)</div>
+            <div className={styles.rate}>(грн)</div>
           </th>
           <th>
             <div>Процент</div>
-            <div>(%)</div>
+            <div className={styles.rate}>(%)</div>
           </th>
         </tr>
       </thead>

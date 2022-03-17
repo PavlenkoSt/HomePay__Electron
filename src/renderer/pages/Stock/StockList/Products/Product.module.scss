@@ -1,3 +1,13 @@
 .line {
   background-color: #fff;
+
+  & td {
+    color: #333;
+    font-size: 14px;
+    text-align: center;
+
+    &:first-child {
+      text-align: left;
+    }
+  }
 }
