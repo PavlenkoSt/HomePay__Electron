@@ -8,9 +8,14 @@ import styles from './ProductsTable.module.scss'
 const ProductsTable = () => {
   const { productsStore } = useStore()
 
-  const sortedProducts = productsStore.products
+  const sortedProducts = productsStore
+    .activeCategoryProducts()
     .slice()
     .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
+
+  if (!sortedProducts.length) {
+    return <div className={styles.noProducts}>В данной категории товаров пока нет.</div>
+  }
 
   return (
     //@ts-ignore

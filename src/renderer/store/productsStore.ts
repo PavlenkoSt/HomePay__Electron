@@ -136,11 +136,21 @@ class ProductsStore {
   }
 
   @computed activeCategoryCount() {
+    if (this.activeCategoryName() === 'Все товары') {
+      return this.products.length
+    }
+
     return (
-      this.categories.find((category) => category.id === this.activeCategoryId)?.productsCount ||
-      this.products.length ||
-      0
+      this.categories.find((category) => category.id === this.activeCategoryId)?.productsCount || 0
     )
+  }
+
+  @computed activeCategoryProducts() {
+    if (this.activeCategoryId === 'all-products') {
+      return this.products
+    }
+
+    return this.products.filter((product) => product.categoryId === this.activeCategoryId)
   }
 }
 
