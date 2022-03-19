@@ -19,7 +19,7 @@ const Categories = () => {
       {productsStore.categories.length ? (
         <>
           <h2 className="title">Категории ({productsStore.categories.length})</h2>
-          {productsStore.categories.map((category) => (
+          {productsStore.sortedCategories().map((category) => (
             <CategoryItem key={category.id} category={category} />
           ))}
         </>

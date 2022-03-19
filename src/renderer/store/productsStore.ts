@@ -56,6 +56,17 @@ class ProductsStore {
     this.removeCategory(categoryId)
   }
 
+  @action editCategoryName(categoryId: number, categoryName: string) {
+    const targetCategory = this.categories.find((category) => category.id === categoryId)
+
+    if (targetCategory) {
+      this.saveCategories([
+        ...this.categories.filter((category) => category.id !== categoryId),
+        { ...targetCategory, name: categoryName },
+      ])
+    }
+  }
+
   @action plusCategoryProductsCount(categoryId: number, count: number) {
     const category = this.categories.find((category) => category.id === categoryId)
 
@@ -151,6 +162,11 @@ class ProductsStore {
     }
 
     return this.products.filter((product) => product.categoryId === this.activeCategoryId)
+  }
+
+  @computed sortedCategories() {
+    //@ts-ignore
+    return this.categories.slice().sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
   }
 }
 
