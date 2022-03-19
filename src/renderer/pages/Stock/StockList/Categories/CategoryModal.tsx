@@ -1,11 +1,10 @@
 import { observer } from 'mobx-react-lite'
-import { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
+import { Dispatch, FC, SetStateAction } from 'react'
 
 import Button from 'renderer/components/Btns/Button'
 import Input from 'renderer/components/Form/Input'
 import ModalWrapper from 'renderer/components/ModalWrapper'
-import ToastService from 'renderer/services/ToastService'
-import { useStore } from 'renderer/store'
+import useCreateCategory from 'renderer/hooks/categories/useCreateCategory'
 
 import styles from './CategoryModal.module.scss'
 
@@ -15,38 +14,9 @@ type CategoryModalPropsType = {
 }
 
 const CategoryModal: FC<CategoryModalPropsType> = ({ visible, setVisible }) => {
-  const [name, setName] = useState('')
-
-  const [nameErr, setNameErr] = useState(false)
-
-  const { productsStore } = useStore()
-
-  const create = useCallback(() => {
-    if (!name) {
-      setNameErr(true)
-      return ToastService.showError('Ошибка')
-    }
-
-    productsStore.addCategory({
-      id: Date.now(),
-      name: name,
-      productsCount: 0,
-    })
-
-    setVisible(false)
-    setName('')
-
-    ToastService.showSuccess('Категория успешно добавлена')
-
-    return
-  }, [name])
-
-  const nameHandler = useCallback((name: string) => {
-    setName(name)
-    if (name) {
-      setNameErr(false)
-    }
-  }, [])
+  const { name, setName, nameErr, setNameErr, create, nameHandler } = useCreateCategory({
+    setVisible,
+  })
 
   return (
     <ModalWrapper

@@ -2,7 +2,7 @@ import { Dispatch, FC, SetStateAction } from 'react'
 import { Radio } from 'pretty-checkbox-react'
 import Select from 'react-select'
 
-import useRemoveCategory, { ProductsActionEnum } from 'renderer/hooks/useRemoveCategory'
+import useRemoveCategory, { ProductsActionEnum } from 'renderer/hooks/categories/useRemoveCategory'
 import TextButton, { ButtonTypeEnum } from 'renderer/components/Btns/TextButton'
 import ModalWrapper from 'renderer/components/ModalWrapper'
 import ICategory from 'renderer/types/ICategory'
