@@ -6,6 +6,7 @@ import IProduct from 'renderer/types/IProduct'
 import styles from './Product.module.scss'
 
 import optionsPic from 'renderer/assets/options.svg'
+import removePic from 'renderer/assets/close.svg'
 
 type ProductPropsType = {
   product: IProduct
@@ -21,8 +22,11 @@ const Product: FC<ProductPropsType> = ({ product }) => {
       <td>{product.price.margin.percent}</td>
       <td>{product.count}</td>
       <td className={styles.action}>
-        <div className={styles.btn}>
+        <div className={styles.btn} title="Редактировать">
           <img className={styles.pic} src={optionsPic} />
+        </div>
+        <div className={styles.btn} title="Удалить">
+          <img className={styles.pic} src={removePic} />
         </div>
       </td>
     </tr>

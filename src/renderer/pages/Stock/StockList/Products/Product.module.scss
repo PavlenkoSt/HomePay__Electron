@@ -8,6 +8,8 @@
 
     &.action {
       padding: 0;
+      display: flex;
+      justify-content: center;
     }
 
     &:first-child {
@@ -24,8 +26,9 @@
   justify-content: center;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  width: 30%;
 
-  &:hover{
+  &:hover {
     background-color: rgb(241, 241, 241);
   }
 }
