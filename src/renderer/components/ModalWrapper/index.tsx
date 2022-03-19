@@ -18,10 +18,10 @@ const ModalWrapper: FC<ModalWrapperPropsType> = ({ children, visible, close }) =
       style={{
         content: {
           top: '100px',
-          left: '200px',
-          right: '200px',
           bottom: 'auto',
-          overflow: 'unset'
+          overflow: 'unset',
+          width: 600,
+          left: 'calc(50% - 300px)',
         },
       }}
     >

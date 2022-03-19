@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite'
 import ICategory from 'renderer/types/ICategory'
 import numWord from 'renderer/helpers/numWord'
 import RemoveCategoryModal from './RemoveCategoryModal'
+import EditCategoryModal from './EditCategoryModal'
 import { useStore } from 'renderer/store'
 
 import styles from './CategoryItem.module.scss'
@@ -21,6 +22,7 @@ const CategoryItem: FC<CategoryPropsType> = ({ category }) => {
   const positions = numWord(productsCount, ['позиция', 'позиции', 'позиций'])
 
   const [showRemove, setShowRemove] = useState(false)
+  const [showEdit, setShowEdit] = useState(false)
 
   const { productsStore } = useStore()
 
@@ -38,7 +40,7 @@ const CategoryItem: FC<CategoryPropsType> = ({ category }) => {
           title="Редактировать"
           onClick={(e) => {
             e.stopPropagation()
-            // editModal
+            setShowEdit(true)
           }}
           className={styles.editBtn}
         >
@@ -57,6 +59,9 @@ const CategoryItem: FC<CategoryPropsType> = ({ category }) => {
       </div>
       {showRemove && (
         <RemoveCategoryModal visible={showRemove} setVisible={setShowRemove} category={category} />
+      )}
+      {showEdit && (
+        <EditCategoryModal visible={showEdit} setVisible={setShowEdit} category={category} />
       )}
     </>
   )
