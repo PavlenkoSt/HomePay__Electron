@@ -2,6 +2,10 @@
   position: relative;
 }
 
+.doubles {
+  width: 100%;
+}
+
 .label {
   position: absolute;
   color: #333;
@@ -10,6 +14,10 @@
   bottom: 5px;
   left: 15px;
   transition: all ease 0.2s;
+}
+
+.labelDouble {
+  bottom: 30px;
 }
 
 .activeLabel {

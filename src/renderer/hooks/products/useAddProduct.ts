@@ -18,6 +18,8 @@ const useAddProduct = ({ setVisible }: useAddProductPropsType) => {
   const [initialCount, setInitialCount] = useState(0)
   const [countErr, setCountErr] = useState(false)
 
+  const [retailPrice, setRetailPrice] = useState()
+
   const close = useCallback(() => {
     setName('')
     setNameErr(false)
@@ -25,20 +27,30 @@ const useAddProduct = ({ setVisible }: useAddProductPropsType) => {
   }, [])
 
   const addProduct = useCallback(() => {
+    let err = false
+
     if (!name) {
       setNameErr(true)
+      err = true
     }
 
-    if (initialCount < 0) {
+    if (initialCount < 0 || (initialCount ^ 0) !== initialCount) {
       setCountErr(true)
+      err = true
     }
 
-    if (nameErr || countErr) {
+    if (err) {
       return ToastService.showError('Заполните все поля корректно')
     }
 
     console.log('name', name)
     console.log('count', +initialCount)
+
+    const product = {
+      name,
+      count: initialCount,
+      categoryId,
+    }
   }, [name, initialCount, nameErr, countErr])
 
   const nameSetter = useCallback((name: string) => {
@@ -49,10 +61,15 @@ const useAddProduct = ({ setVisible }: useAddProductPropsType) => {
   }, [])
 
   const countSetter = useCallback((count: string) => {
-    if (+count >= 0) {
+    if (+count >= 0 && (initialCount ^ 0) === initialCount) {
       setCountErr(false)
     }
-    setInitialCount(+count)
+
+    if (count === '') {
+      setInitialCount(0)
+    } else {
+      setInitialCount(parseInt(count))
+    }
   }, [])
 
   const options = useMemo(

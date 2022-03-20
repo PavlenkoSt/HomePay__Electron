@@ -10,14 +10,23 @@ type InputPropsType = {
   error?: boolean
   errorMessage?: string
   type?: HTMLInputTypeAttribute
+  doubles?: boolean
 }
 
-const Input: FC<InputPropsType> = ({ value, setValue, label, error, errorMessage, type }) => {
+const Input: FC<InputPropsType> = ({
+  value,
+  setValue,
+  label,
+  error,
+  errorMessage,
+  type,
+  doubles,
+}) => {
   const [isFocused, setIsFocused] = useState(false)
   const inputRef = useRef(null)
 
   return (
-    <div className={styles.container}>
+    <div className={classnames(styles.container, !!doubles && styles.doubles)}>
       <input
         ref={inputRef}
         value={value}
@@ -32,6 +41,7 @@ const Input: FC<InputPropsType> = ({ value, setValue, label, error, errorMessage
         onClick={() => inputRef.current.focus()}
         className={classnames(
           styles.label,
+          doubles && styles.labelDouble,
           (isFocused || value || value === 0) && styles.activeLabel
         )}
       >

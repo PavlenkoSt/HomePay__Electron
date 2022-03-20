@@ -43,10 +43,31 @@ const AddProductModal: FC<AddProductModalPropsType> = ({ visible, setVisible }) 
               error={errors.nameErr}
               errorMessage="Название"
             />
+            <div className={styles.doubles}>
+              <Input
+                label="Название"
+                value={formData.name}
+                setValue={formDataSetters.nameSetter}
+                error={errors.nameErr}
+                errorMessage="Название"
+                doubles
+              />
+              <Input
+                label="Название"
+                value={formData.name}
+                setValue={formDataSetters.nameSetter}
+                error={errors.nameErr}
+                errorMessage="Название"
+                doubles
+              />
+            </div>
+
             <Input
               label="Количество"
-              value={formData.count}
+              value={formData.count.toString()}
               setValue={formDataSetters.countSetter}
+              error={errors.countErr}
+              errorMessage="Некорректное количество"
               type="number"
             />
           </div>
