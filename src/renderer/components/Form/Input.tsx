@@ -30,7 +30,10 @@ const Input: FC<InputPropsType> = ({ value, setValue, label, error, errorMessage
       <span
         //@ts-ignore
         onClick={() => inputRef.current.focus()}
-        className={classnames(styles.label, (isFocused || value) && styles.activeLabel)}
+        className={classnames(
+          styles.label,
+          (isFocused || value || value === 0) && styles.activeLabel
+        )}
       >
         {label}:
       </span>
