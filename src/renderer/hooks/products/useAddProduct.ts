@@ -1,6 +1,7 @@
-import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react'
-import ToastService from 'renderer/services/ToastService'
+import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
+import productCalc from 'renderer/helpers/productCalc'
 
+import ToastService from 'renderer/services/ToastService'
 import { useStore } from 'renderer/store'
 
 type useAddProductPropsType = {
@@ -18,7 +19,23 @@ const useAddProduct = ({ setVisible }: useAddProductPropsType) => {
   const [initialCount, setInitialCount] = useState(0)
   const [countErr, setCountErr] = useState(false)
 
-  const [retailPrice, setRetailPrice] = useState()
+  const [retailPrice, setRetailPrice] = useState(0)
+  const [retailPriceErr, setRetailPriceErr] = useState(false)
+
+  const [wholesalePrice, setWholesalePrice] = useState(0)
+  const [wholesalePriceErr, setWholesalePriceErr] = useState(false)
+
+  const [marginValue, setMarginValue] = useState(0)
+  const [marginValueErr, setMarginValueErr] = useState(false)
+
+  const [marginPercent, setMarginPercent] = useState(30)
+  const [marginPercentErr, setMarginPercentErr] = useState(false)
+
+  useEffect(() => {
+    if (productsStore.activeCategoryId !== 'all-products') {
+      setCategoryId(productsStore.activeCategoryId)
+    }
+  }, [productsStore.activeCategoryId])
 
   const close = useCallback(() => {
     setName('')
@@ -28,6 +45,10 @@ const useAddProduct = ({ setVisible }: useAddProductPropsType) => {
 
   const addProduct = useCallback(() => {
     let err = false
+
+    if (!categoryId) {
+      return ToastService.showError('Выберите категорию')
+    }
 
     if (!name) {
       setNameErr(true)
@@ -39,19 +60,54 @@ const useAddProduct = ({ setVisible }: useAddProductPropsType) => {
       err = true
     }
 
+    if (retailPrice < 0) {
+      setRetailPriceErr(true)
+      err = true
+    }
+
+    if (wholesalePrice < 0) {
+      setWholesalePriceErr(true)
+      err = true
+    }
+
+    if (retailPrice < 0) {
+      setRetailPriceErr(true)
+      err = true
+    }
+
+    if (marginPercent < 0) {
+      setMarginPercentErr(true)
+      err = true
+    }
+
+    if (marginValue < 0) {
+      setMarginValueErr(true)
+      err = true
+    }
+
     if (err) {
       return ToastService.showError('Заполните все поля корректно')
     }
 
-    console.log('name', name)
-    console.log('count', +initialCount)
-
     const product = {
+      id: Date.now(),
       name,
-      count: initialCount,
       categoryId,
+      count: +initialCount,
+      price: {
+        retail: +retailPrice,
+        wholesale: +wholesalePrice,
+        margin: {
+          value: +marginValue,
+          percent: +marginPercent,
+        },
+      },
     }
-  }, [name, initialCount, nameErr, countErr])
+
+    return product
+  }, [name, initialCount, categoryId, retailPrice, wholesalePrice, marginPercent, marginValue])
+
+  // setters
 
   const nameSetter = useCallback((name: string) => {
     setName(name)
@@ -68,9 +124,79 @@ const useAddProduct = ({ setVisible }: useAddProductPropsType) => {
     if (count === '') {
       setInitialCount(0)
     } else {
-      setInitialCount(parseInt(count))
+      setInitialCount(+count)
     }
   }, [])
+
+  const retailPriceSetter = useCallback(
+    (price: string) => {
+      if (+price >= 0) {
+        setRetailPriceErr(false)
+      }
+
+      const marginV = productCalc.getMarginValueFromPrices(+price, wholesalePrice)
+      const percent = productCalc.getPercentFromPrices(+price, wholesalePrice)
+
+      setMarginPercent(percent || 0)
+      setMarginValue(marginV || 0)
+
+      setRetailPrice(+price)
+    },
+    [wholesalePrice]
+  )
+
+  const wholesalePriceSetter = useCallback(
+    (price: string) => {
+      if (+price >= 0) {
+        setWholesalePriceErr(false)
+      }
+
+      const marginPercent = productCalc.getPercentFromPrices(retailPrice, +price)
+      const marginVal = productCalc.getMarginValueFromPrices(retailPrice, +price)
+
+      setMarginPercent(marginPercent || 0)
+      setMarginValue(marginVal || 0)
+
+      setWholesalePrice(+price)
+    },
+    [retailPrice]
+  )
+
+  const marginValueSetter = useCallback(
+    (value: string) => {
+      if (+value >= 0) {
+        setMarginValueErr(false)
+      }
+
+      const percent = productCalc.getPercentFromRetailAndMarginValue(retailPrice, +value)
+      const wholesale = productCalc.getWholesaleFromRetailAndMarginValue(retailPrice, +value)
+
+      setMarginPercent(percent || 0)
+      setWholesalePrice(wholesale || 0)
+
+      setMarginValue(+value)
+    },
+    [retailPrice]
+  )
+
+  const marginPercentSetter = useCallback(
+    (percent: string) => {
+      if (+percent >= 0) {
+        setMarginPercentErr(false)
+      }
+
+      const wholesale = productCalc.getMarginFromPercentAndPrice(+percent, retailPrice)
+      const marginV = productCalc.getMarginValueFromPrices(retailPrice, wholesale)
+
+      setWholesalePrice(wholesale || 0)
+      setMarginValue(marginV || 0)
+
+      setMarginPercent(+percent)
+    },
+    [retailPrice]
+  )
+
+  // ====
 
   const options = useMemo(
     () => productsStore.products.map((product) => ({ value: product.id, label: product.name })),
@@ -85,16 +211,32 @@ const useAddProduct = ({ setVisible }: useAddProductPropsType) => {
     formData: {
       name,
       count: initialCount,
+      retailPrice,
+      wholesalePrice,
+      marginValue,
+      marginPercent,
     },
     formDataSetters: {
       nameSetter,
       countSetter,
+      retailPriceSetter,
+      wholesalePriceSetter,
+      marginValueSetter,
+      marginPercentSetter,
     },
     errors: {
       nameErr,
       setNameErr,
       countErr,
       setCountErr,
+      retailPriceErr,
+      setRetailPriceErr,
+      wholesalePriceErr,
+      setWholesalePriceErr,
+      marginValueErr,
+      setMarginValueErr,
+      marginPercentErr,
+      setMarginPercentErr,
     },
   }
 }

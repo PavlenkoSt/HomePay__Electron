@@ -16,9 +16,9 @@ const Product: FC<ProductPropsType> = ({ product }) => {
   return (
     <tr className={styles.line}>
       <td>{product.name}</td>
-      <td>{product.price.retail}</td>
-      <td>{product.price.wholesale}</td>
-      <td>{product.price.margin.value}</td>
+      <td>{product.price.retail.toFixed(2)}</td>
+      <td>{product.price.wholesale.toFixed(2)}</td>
+      <td>{product.price.margin.value.toFixed(2)}</td>
       <td>{product.price.margin.percent}</td>
       <td>{product.count}</td>
       <td className={styles.action}>

@@ -47,7 +47,11 @@ const Input: FC<InputPropsType> = ({
       >
         {label}:
       </span>
-      {error && <div className={styles.control}>{errorMessage}</div>}
+      {error && (
+        <div className={classnames(styles.control, doubles && styles.controlDoubles)}>
+          {errorMessage}
+        </div>
+      )}
     </div>
   )
 }
