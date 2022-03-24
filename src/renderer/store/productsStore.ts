@@ -90,17 +90,26 @@ class ProductsStore {
     this.saveProducts(filteredProducts)
   }
 
+  @action removeProductOne(productId: number, categoryId: number) {
+    this.saveProducts(this.products.filter((product) => product.id !== productId))
+    this.changeCategoryProductCount(categoryId, 'decrement')
+  }
+
   @action addOneProductDB(product: IProduct) {
-    this.incrementCategoryProductCount(product.categoryId)
+    this.changeCategoryProductCount(product.categoryId, 'increment')
     this.saveProducts([product, ...this.products])
   }
 
-  @action incrementCategoryProductCount(categoryId: number) {
+  @action changeCategoryProductCount(categoryId: number, type: 'increment' | 'decrement') {
     const findedCategory = this.categories.find((cat) => cat.id === categoryId)
 
     if (!findedCategory) return
 
-    findedCategory.productsCount += 1
+    if (type === 'increment') {
+      findedCategory.productsCount += 1
+    } else {
+      findedCategory.productsCount -= 1
+    }
 
     this.saveCategories([
       findedCategory,
