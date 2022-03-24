@@ -104,8 +104,22 @@ const useAddProduct = ({ setVisible }: useAddProductPropsType) => {
       },
     }
 
-    return product
+    productsStore.addOneProductDB(product)
+    ToastService.showSuccess('Товар успешно добавлен')
+
+    clearFields()
+
+    return
   }, [name, initialCount, categoryId, retailPrice, wholesalePrice, marginPercent, marginValue])
+
+  const clearFields = useCallback(() => {
+    setName('')
+    setInitialCount(0)
+    setMarginValue(0)
+    setMarginPercent(0)
+    setRetailPrice(0)
+    setWholesalePrice(0)
+  }, [])
 
   // setters
 

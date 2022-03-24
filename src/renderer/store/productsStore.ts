@@ -90,6 +90,24 @@ class ProductsStore {
     this.saveProducts(filteredProducts)
   }
 
+  @action addOneProductDB(product: IProduct) {
+    this.incrementCategoryProductCount(product.categoryId)
+    this.saveProducts([product, ...this.products])
+  }
+
+  @action incrementCategoryProductCount(categoryId: number) {
+    const findedCategory = this.categories.find((cat) => cat.id === categoryId)
+
+    if (!findedCategory) return
+
+    findedCategory.productsCount += 1
+
+    this.saveCategories([
+      findedCategory,
+      ...this.categories.filter((category) => category.id !== categoryId),
+    ])
+  }
+
   @action saveProducts(productsProxy: IProduct[]) {
     const products = JSONCorrect(productsProxy)
 
