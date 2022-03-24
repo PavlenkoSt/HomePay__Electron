@@ -213,7 +213,8 @@ const useAddProduct = ({ setVisible }: useAddProductPropsType) => {
   // ====
 
   const options = useMemo(
-    () => productsStore.products.map((product) => ({ value: product.id, label: product.name })),
+    () =>
+      productsStore.categories.map((category) => ({ value: category.id, label: category.name })),
     [productsStore.categories]
   )
 
