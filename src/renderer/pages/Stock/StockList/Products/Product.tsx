@@ -8,6 +8,7 @@ import styles from './Product.module.scss'
 import optionsPic from 'renderer/assets/options.svg'
 import removePic from 'renderer/assets/close.svg'
 import RemoveProductModal from './RemoveProductModal'
+import Options from './Options'
 
 type ProductPropsType = {
   product: IProduct
@@ -15,6 +16,7 @@ type ProductPropsType = {
 
 const Product: FC<ProductPropsType> = ({ product }) => {
   const [removeProductModalVisible, setRemoveProductModalVisible] = useState(false)
+  const [optionsVisible, setOptionsVisible] = useState(false)
 
   return (
     <>
@@ -26,8 +28,15 @@ const Product: FC<ProductPropsType> = ({ product }) => {
         <td>{product.price.margin.percent}</td>
         <td>{product.count}</td>
         <td className={styles.action}>
-          <div className={styles.btn} title="Редактировать">
-            <img className={styles.pic} src={optionsPic} />
+          <div
+            onMouseEnter={() => setOptionsVisible(true)}
+            onMouseLeave={() => setOptionsVisible(false)}
+            className={styles.btnWrapper}
+          >
+            <div className={styles.btn} title="Редактировать">
+              <img className={styles.pic} src={optionsPic} />
+            </div>
+            {optionsVisible && <Options />}
           </div>
           <div
             onClick={() => setRemoveProductModalVisible(true)}
