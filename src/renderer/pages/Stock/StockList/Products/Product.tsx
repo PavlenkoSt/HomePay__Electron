@@ -36,7 +36,7 @@ const Product: FC<ProductPropsType> = ({ product }) => {
             <div className={styles.btn} title="Редактировать">
               <img className={styles.pic} src={optionsPic} />
             </div>
-            {optionsVisible && <Options />}
+            {optionsVisible && <Options product={product} />}
           </div>
           <div
             onClick={() => setRemoveProductModalVisible(true)}
