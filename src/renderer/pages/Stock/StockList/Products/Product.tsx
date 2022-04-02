@@ -11,6 +11,7 @@ import optionsPic from 'renderer/assets/options.svg'
 import removePic from 'renderer/assets/close.svg'
 import AddProductModal from './AddProductModal'
 import MoveModal from './MoveModal'
+import { useStore } from 'renderer/store'
 
 type ProductPropsType = {
   product: IProduct
@@ -21,6 +22,8 @@ const Product: FC<ProductPropsType> = ({ product }) => {
   const [optionsVisible, setOptionsVisible] = useState(false)
   const [editModalVisible, setEditModalVisible] = useState(false)
   const [moveModal, setMoveModal] = useState(false)
+
+  const { productsStore } = useStore()
 
   const openEditModal = useCallback(() => {
     setOptionsVisible(false)
@@ -35,6 +38,12 @@ const Product: FC<ProductPropsType> = ({ product }) => {
     <>
       <tr className={styles.line}>
         <td>{product.name}</td>
+        {productsStore.activeCategoryId === 'all-products' && (
+          <td>
+            {productsStore.categories.find((category) => category.id === product.categoryId)
+              ?.name || 'Без категории'}
+          </td>
+        )}
         <td>{product.price.retail.toFixed(2)}</td>
         <td>{product.price.wholesale.toFixed(2)}</td>
         <td>{product.price.margin.value.toFixed(2)}</td>

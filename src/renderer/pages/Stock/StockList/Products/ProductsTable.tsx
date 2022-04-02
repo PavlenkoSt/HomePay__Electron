@@ -23,6 +23,7 @@ const ProductsTable = () => {
       <thead>
         <tr>
           <th rowSpan={2}>Название</th>
+          {productsStore.activeCategoryId === 'all-products' && <th rowSpan={2}>Категория</th>}
           <th colSpan={2}>Цена</th>
           <th colSpan={2}>Наценка</th>
           <th rowSpan={2}>
