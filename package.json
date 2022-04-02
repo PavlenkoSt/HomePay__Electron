@@ -12,7 +12,8 @@
     "start": "ts-node ./.erb/scripts/check-port-in-use.js && npm run start:renderer",
     "start:main": "cross-env NODE_ENV=development electron -r ts-node/register/transpile-only ./src/main/main.ts",
     "start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack serve --config ./.erb/configs/webpack.config.renderer.dev.ts",
-    "test": "jest"
+    "test": "jest",
+    "generate-icon": "./node_modules/.bin/electron-icon-builder --input=./assets/store.png --output=./assets/generatedIcons"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -154,6 +155,7 @@
     "electron": "^16.0.5",
     "electron-builder": "22.13.1",
     "electron-devtools-installer": "^3.2.0",
+    "electron-icon-builder": "^2.0.1",
     "electron-notarize": "^1.1.1",
     "electron-rebuild": "^3.2.5",
     "eslint": "^8.5.0",
