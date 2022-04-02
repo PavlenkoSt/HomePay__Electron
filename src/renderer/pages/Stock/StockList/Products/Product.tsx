@@ -10,6 +10,7 @@ import styles from './Product.module.scss'
 import optionsPic from 'renderer/assets/options.svg'
 import removePic from 'renderer/assets/close.svg'
 import AddProductModal from './AddProductModal'
+import MoveModal from './MoveModal'
 
 type ProductPropsType = {
   product: IProduct
@@ -19,10 +20,15 @@ const Product: FC<ProductPropsType> = ({ product }) => {
   const [removeProductModalVisible, setRemoveProductModalVisible] = useState(false)
   const [optionsVisible, setOptionsVisible] = useState(false)
   const [editModalVisible, setEditModalVisible] = useState(false)
+  const [moveModal, setMoveModal] = useState(false)
 
   const openEditModal = useCallback(() => {
     setOptionsVisible(false)
     setEditModalVisible(true)
+  }, [])
+
+  const openMoveModal = useCallback(() => {
+    setMoveModal(true)
   }, [])
 
   return (
@@ -43,7 +49,7 @@ const Product: FC<ProductPropsType> = ({ product }) => {
             <div className={styles.btn} title="Редактировать">
               <img className={styles.pic} src={optionsPic} />
             </div>
-            {optionsVisible && <Options product={product} editHandler={openEditModal} />}
+            {optionsVisible && <Options moveHandler={openMoveModal} editHandler={openEditModal} />}
           </div>
           <div
             onClick={() => setRemoveProductModalVisible(true)}
@@ -65,6 +71,11 @@ const Product: FC<ProductPropsType> = ({ product }) => {
         editMode
         product={product}
         editId={product.id}
+      />
+      <MoveModal
+        visible={moveModal}
+        setVisible={setMoveModal}
+        initialCategoryId={product.categoryId}
       />
     </>
   )
