@@ -6,17 +6,15 @@ import styles from './Options.module.scss'
 
 type OptionsPropsType = {
   product: IProduct
-  clickHandler: MouseEventHandler<HTMLDivElement>
+  editHandler: MouseEventHandler<HTMLDivElement>
 }
 
-const Options: FC<OptionsPropsType> = ({ product, clickHandler }) => {
+const Options: FC<OptionsPropsType> = ({ product, editHandler }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.body} onClick={(e) => e.stopPropagation()}>
-        <div className={styles.item}>
-          <div onClick={clickHandler} className={styles.text}>
-            Редактировать
-          </div>
+        <div onClick={editHandler} className={styles.item}>
+          <div className={styles.text}>Редактировать</div>
         </div>
         <div className={styles.item}>
           <div className={styles.text}>Переместить</div>

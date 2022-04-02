@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
-import productCalc from 'renderer/helpers/productCalc'
 
+import productCalc from 'renderer/helpers/productCalc'
 import ToastService from 'renderer/services/ToastService'
 import { useStore } from 'renderer/store'
 import IProduct from 'renderer/types/IProduct'
@@ -49,8 +49,10 @@ const useAddProduct = ({ setVisible, initialValues, editId }: useAddProductProps
   }, [productsStore.activeCategoryId])
 
   const close = useCallback(() => {
-    setName('')
-    setNameErr(false)
+    if (!initialValues) {
+      setName('')
+      setNameErr(false)
+    }
     setVisible(false)
   }, [])
 
