@@ -3,29 +3,34 @@ import Select from 'react-select'
 
 import TextButton, { ButtonTypeEnum } from 'renderer/components/Btns/TextButton'
 import ModalWrapper from 'renderer/components/ModalWrapper'
+import ToastService from 'renderer/services/ToastService'
 import { useStore } from 'renderer/store'
+import IProduct from 'renderer/types/IProduct'
 
 import styles from './MoveModal.module.scss'
 
 type MoveModalPropsType = {
   visible: boolean
   setVisible: Dispatch<SetStateAction<boolean>>
-  initialCategoryId: number
+  product: IProduct
 }
 
-const MoveModal: FC<MoveModalPropsType> = ({ visible, setVisible, initialCategoryId }) => {
+const MoveModal: FC<MoveModalPropsType> = ({ visible, setVisible, product }) => {
   const { productsStore } = useStore()
 
   const [category, setCategory] = useState<null | any>(
     {
-      value: initialCategoryId,
-      label: productsStore.categories.find((category) => category.id === initialCategoryId)?.name,
+      value: product.categoryId,
+      label: productsStore.categories.find((category) => category.id === product.categoryId)?.name,
     } || null
   )
 
   const close = useCallback(() => setVisible(false), [])
 
-  const move = useCallback(() => {}, [category])
+  const move = useCallback(() => {
+    productsStore.moveProductToOtherCategory(product, category.value)
+    ToastService.showSuccess('Товар успешно перемещен')
+  }, [category])
 
   const options = useMemo(
     () =>

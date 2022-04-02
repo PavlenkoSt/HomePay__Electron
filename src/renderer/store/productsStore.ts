@@ -85,6 +85,16 @@ class ProductsStore {
     this.saveProducts([...filteredProducts, ...products])
   }
 
+  @action moveProductToOtherCategory(product: IProduct, toCategory: number) {
+    this.changeCategoryProductCount(product.categoryId, 'decrement')
+
+    const updatedProduct = product
+    updatedProduct.categoryId = toCategory
+
+    this.changeCategoryProductCount(toCategory, 'increment')
+    this.saveProducts([...this.products.filter((prod) => prod.id !== product.id), updatedProduct])
+  }
+
   @action removeProductMany(arrayId: number[]) {
     const filteredProducts = this.removeProductsFromListByIdsArr(arrayId)
     this.saveProducts(filteredProducts)

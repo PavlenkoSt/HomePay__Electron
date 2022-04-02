@@ -72,11 +72,7 @@ const Product: FC<ProductPropsType> = ({ product }) => {
         product={product}
         editId={product.id}
       />
-      <MoveModal
-        visible={moveModal}
-        setVisible={setMoveModal}
-        initialCategoryId={product.categoryId}
-      />
+      <MoveModal visible={moveModal} setVisible={setMoveModal} product={product} />
     </>
   )
 }
