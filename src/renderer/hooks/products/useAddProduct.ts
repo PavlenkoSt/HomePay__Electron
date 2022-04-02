@@ -3,32 +3,43 @@ import productCalc from 'renderer/helpers/productCalc'
 
 import ToastService from 'renderer/services/ToastService'
 import { useStore } from 'renderer/store'
+import IProduct from 'renderer/types/IProduct'
 
 type useAddProductPropsType = {
   setVisible: Dispatch<SetStateAction<boolean>>
+  initialValues: IProduct | null
+  editId: number | null
 }
 
-const useAddProduct = ({ setVisible }: useAddProductPropsType) => {
+const useAddProduct = ({ setVisible, initialValues, editId }: useAddProductPropsType) => {
   const { productsStore } = useStore()
 
-  const [categoryId, setCategoryId] = useState<number | null>(null)
+  const [categoryId, setCategoryId] = useState<number | null>(
+    initialValues ? initialValues?.categoryId : null
+  )
 
-  const [name, setName] = useState('')
+  const [name, setName] = useState(initialValues ? initialValues.name : '')
   const [nameErr, setNameErr] = useState(false)
 
-  const [initialCount, setInitialCount] = useState(0)
+  const [initialCount, setInitialCount] = useState(initialValues ? initialValues.count : 0)
   const [countErr, setCountErr] = useState(false)
 
-  const [retailPrice, setRetailPrice] = useState(0)
+  const [retailPrice, setRetailPrice] = useState(initialValues ? initialValues.price.retail : 0)
   const [retailPriceErr, setRetailPriceErr] = useState(false)
 
-  const [wholesalePrice, setWholesalePrice] = useState(0)
+  const [wholesalePrice, setWholesalePrice] = useState(
+    initialValues ? initialValues.price.wholesale : 0
+  )
   const [wholesalePriceErr, setWholesalePriceErr] = useState(false)
 
-  const [marginValue, setMarginValue] = useState(0)
+  const [marginValue, setMarginValue] = useState(
+    initialValues ? initialValues.price.margin.value : 0
+  )
   const [marginValueErr, setMarginValueErr] = useState(false)
 
-  const [marginPercent, setMarginPercent] = useState(30)
+  const [marginPercent, setMarginPercent] = useState(
+    initialValues ? initialValues.price.margin.percent : 30
+  )
   const [marginPercentErr, setMarginPercentErr] = useState(false)
 
   useEffect(() => {
@@ -104,8 +115,13 @@ const useAddProduct = ({ setVisible }: useAddProductPropsType) => {
       },
     }
 
-    productsStore.addOneProductDB(product)
-    ToastService.showSuccess('Товар успешно добавлен')
+    if (initialValues && editId) {
+      productsStore.editProductDB(product, editId)
+      ToastService.showSuccess('Товар успешно редактировать')
+    } else {
+      productsStore.addOneProductDB(product)
+      ToastService.showSuccess('Товар успешно добавлен')
+    }
 
     clearFields()
 

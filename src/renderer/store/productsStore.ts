@@ -100,6 +100,10 @@ class ProductsStore {
     this.saveProducts([product, ...this.products])
   }
 
+  @action editProductDB(product: IProduct, editId: number) {
+    this.saveProducts([...this.products.filter((prod) => prod.id !== editId), product])
+  }
+
   @action changeCategoryProductCount(categoryId: number, type: 'increment' | 'decrement') {
     const findedCategory = this.categories.find((cat) => cat.id === categoryId)
 

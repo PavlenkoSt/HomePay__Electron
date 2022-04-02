@@ -6,6 +6,7 @@ import TextButton, { ButtonTypeEnum } from 'renderer/components/Btns/TextButton'
 import ModalWrapper from 'renderer/components/ModalWrapper'
 import useAddProduct from 'renderer/hooks/products/useAddProduct'
 import Input from 'renderer/components/Form/Input'
+import IProduct from 'renderer/types/IProduct'
 import { useStore } from 'renderer/store'
 
 import styles from './AddProductModal.module.scss'
@@ -13,21 +14,30 @@ import styles from './AddProductModal.module.scss'
 type AddProductModalPropsType = {
   visible: boolean
   setVisible: Dispatch<SetStateAction<boolean>>
+  editMode?: boolean
+  product?: IProduct
+  editId?: number
 }
 
-const AddProductModal: FC<AddProductModalPropsType> = ({ visible, setVisible }) => {
+const AddProductModal: FC<AddProductModalPropsType> = ({
+  visible,
+  setVisible,
+  editMode,
+  product,
+  editId,
+}) => {
   const { addProduct, close, options, setCategoryId, formData, formDataSetters, errors } =
-    useAddProduct({ setVisible })
+    useAddProduct({ setVisible, editId: editId || null, initialValues: product || null })
 
   const { productsStore } = useStore()
 
   return (
     <ModalWrapper visible={visible} close={close}>
       <div>
-        <h2 className="title">Добавить товар</h2>
+        <h2 className="title">{editMode ? 'Редактировать' : 'Добавить товар'}</h2>
         <div>
           <div className={styles.form}>
-            {productsStore.activeCategoryId === 'all-products' && (
+            {productsStore.activeCategoryId === 'all-products' && !editMode && (
               <div className={styles.select}>
                 <Select
                   placeholder="В категорию"
@@ -99,7 +109,7 @@ const AddProductModal: FC<AddProductModalPropsType> = ({ visible, setVisible }) 
           <div className={styles.btns}>
             <TextButton onClick={close}>Отмена</TextButton>
             <TextButton onClick={addProduct} type={ButtonTypeEnum.PRIMARY}>
-              Добавить
+              {editMode ? 'Редактировать' : 'Добавить'}
             </TextButton>
           </div>
         </div>

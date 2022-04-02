@@ -1,14 +1,15 @@
-import { FC, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import IProduct from 'renderer/types/IProduct'
+import RemoveProductModal from './RemoveProductModal'
+import Options from './Options'
 
 import styles from './Product.module.scss'
 
 import optionsPic from 'renderer/assets/options.svg'
 import removePic from 'renderer/assets/close.svg'
-import RemoveProductModal from './RemoveProductModal'
-import Options from './Options'
+import AddProductModal from './AddProductModal'
 
 type ProductPropsType = {
   product: IProduct
@@ -17,6 +18,12 @@ type ProductPropsType = {
 const Product: FC<ProductPropsType> = ({ product }) => {
   const [removeProductModalVisible, setRemoveProductModalVisible] = useState(false)
   const [optionsVisible, setOptionsVisible] = useState(false)
+  const [editModalVisible, setEditModalVisible] = useState(false)
+
+  const openEditModal = useCallback(() => {
+    setOptionsVisible(false)
+    setEditModalVisible(true)
+  }, [])
 
   return (
     <>
@@ -36,7 +43,7 @@ const Product: FC<ProductPropsType> = ({ product }) => {
             <div className={styles.btn} title="Редактировать">
               <img className={styles.pic} src={optionsPic} />
             </div>
-            {optionsVisible && <Options product={product} />}
+            {optionsVisible && <Options product={product} clickHandler={openEditModal} />}
           </div>
           <div
             onClick={() => setRemoveProductModalVisible(true)}
@@ -51,6 +58,13 @@ const Product: FC<ProductPropsType> = ({ product }) => {
         visible={removeProductModalVisible}
         setVisible={setRemoveProductModalVisible}
         product={product}
+      />
+      <AddProductModal
+        visible={editModalVisible}
+        setVisible={setEditModalVisible}
+        editMode
+        product={product}
+        editId={product.id}
       />
     </>
   )
