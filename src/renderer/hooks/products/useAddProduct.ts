@@ -54,7 +54,7 @@ const useAddProduct = ({ setVisible, initialValues, editId }: useAddProductProps
       setNameErr(false)
     }
     setVisible(false)
-  }, [])
+  }, [initialValues])
 
   const addProduct = useCallback(() => {
     let err = false
@@ -119,7 +119,9 @@ const useAddProduct = ({ setVisible, initialValues, editId }: useAddProductProps
 
     if (initialValues && editId) {
       productsStore.editProductDB(product, editId)
-      ToastService.showSuccess('Товар успешно редактировать')
+      close()
+
+      ToastService.showSuccess('Товар успешно редактирован')
     } else {
       productsStore.addOneProductDB(product)
       ToastService.showSuccess('Товар успешно добавлен')
