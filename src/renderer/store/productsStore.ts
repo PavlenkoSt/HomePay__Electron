@@ -17,10 +17,14 @@ class ProductsStore {
 
   @action setSearchableProduct(value: string) {
     if (this.activeCategoryId === 'all-products') {
-      this.searchableProducts = this.products.filter((product) => product.name.includes(value))
+      this.searchableProducts = this.products.filter((product) =>
+        product.name.toLowerCase().includes(value.toLowerCase())
+      )
     } else {
       this.searchableProducts = this.products.filter(
-        (product) => product.categoryId === this.activeCategoryId && product.name.includes(value)
+        (product) =>
+          product.categoryId === this.activeCategoryId &&
+          product.name.toLowerCase().includes(value.toLowerCase())
       )
     }
   }
