@@ -1,15 +1,21 @@
+import classNames from 'classnames'
+import { Dispatch, FC, SetStateAction } from 'react'
+
 import styles from './CloseBtn.module.scss'
 
 import closePic from 'renderer/assets/close.svg'
-import { Dispatch, FC, SetStateAction } from 'react'
 
 type CloseBtnPropsType = {
   setVisible: Dispatch<SetStateAction<boolean>>
+  small?: boolean
 }
 
-const CloseBtn: FC<CloseBtnPropsType> = ({ setVisible }) => {
+const CloseBtn: FC<CloseBtnPropsType> = ({ setVisible, small }) => {
   return (
-    <div className={styles.btn} onClick={() => setVisible(false)}>
+    <div
+      className={classNames(styles.btn, small && styles.btnSmall)}
+      onClick={() => setVisible(false)}
+    >
       <img src={closePic} />
     </div>
   )

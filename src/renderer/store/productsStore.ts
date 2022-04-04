@@ -9,9 +9,20 @@ class ProductsStore {
   @observable categories: ICategory[] = []
   @observable products: IProduct[] = []
   @observable activeCategoryId: number | null | 'all-products' = null
+  @observable searchableProducts: IProduct[] = []
 
   constructor() {
     makeAutoObservable(this)
+  }
+
+  @action setSearchableProduct(value: string) {
+    if (this.activeCategoryId === 'all-products') {
+      this.searchableProducts = this.products.filter((product) => product.name.includes(value))
+    } else {
+      this.searchableProducts = this.products.filter(
+        (product) => product.categoryId === this.activeCategoryId && product.name.includes(value)
+      )
+    }
   }
 
   @action setActiveCategoryId(categoryId: number | null | 'all-products') {
@@ -199,10 +210,10 @@ class ProductsStore {
 
   @computed activeCategoryProducts() {
     if (this.activeCategoryId === 'all-products') {
-      return this.products
+      return this.searchableProducts
     }
 
-    return this.products.filter((product) => product.categoryId === this.activeCategoryId)
+    return this.searchableProducts.filter((product) => product.categoryId === this.activeCategoryId)
   }
 
   @computed sortedCategories() {

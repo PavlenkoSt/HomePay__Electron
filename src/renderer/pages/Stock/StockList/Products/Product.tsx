@@ -31,6 +31,7 @@ const Product: FC<ProductPropsType> = ({ product }) => {
   }, [])
 
   const openMoveModal = useCallback(() => {
+    setOptionsVisible(false)
     setMoveModal(true)
   }, [])
 

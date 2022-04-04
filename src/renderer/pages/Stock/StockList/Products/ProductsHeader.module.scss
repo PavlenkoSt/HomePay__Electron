@@ -29,9 +29,26 @@
   gap: 10px;
   align-items: center;
   margin-bottom: 10px;
+  justify-content: space-between;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .category {
   font-weight: 600;
   color: #333;
+}
+
+.searchField {
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
