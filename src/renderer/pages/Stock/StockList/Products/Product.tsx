@@ -56,7 +56,7 @@ const Product: FC<ProductPropsType> = ({ product }) => {
             onMouseLeave={() => setOptionsVisible(false)}
             className={styles.btnWrapper}
           >
-            <div className={styles.btn} title="Редактировать">
+            <div className={styles.btn}>
               <img className={styles.pic} src={optionsPic} />
             </div>
             {optionsVisible && <Options moveHandler={openMoveModal} editHandler={openEditModal} />}
