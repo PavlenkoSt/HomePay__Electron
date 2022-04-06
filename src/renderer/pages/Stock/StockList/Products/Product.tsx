@@ -4,14 +4,14 @@ import { observer } from 'mobx-react-lite'
 import IProduct from 'renderer/types/IProduct'
 import RemoveProductModal from './RemoveProductModal'
 import Options from './Options'
+import AddProductModal from './AddProductModal'
+import MoveModal from './MoveModal'
+import { useStore } from 'renderer/store'
 
 import styles from './Product.module.scss'
 
 import optionsPic from 'renderer/assets/options.svg'
 import removePic from 'renderer/assets/close.svg'
-import AddProductModal from './AddProductModal'
-import MoveModal from './MoveModal'
-import { useStore } from 'renderer/store'
 
 type ProductPropsType = {
   product: IProduct
@@ -51,6 +51,9 @@ const Product: FC<ProductPropsType> = ({ product }) => {
         <td>{product.price.margin.percent}</td>
         <td>{product.count}</td>
         <td className={styles.action}>
+          <div onClick={() => {}} className={styles.btn} title="Завоз">
+            <div className={styles.addBtn}>+</div>
+          </div>
           <div
             onMouseEnter={() => setOptionsVisible(true)}
             onMouseLeave={() => setOptionsVisible(false)}

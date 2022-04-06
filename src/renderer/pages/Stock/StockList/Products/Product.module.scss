@@ -40,6 +40,19 @@
   }
 }
 
+.addBtn {
+  background-color: rgb(66, 208, 0);
+  border: 1px solid rgb(59, 184, 2);
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: #fff;
+}
+
 .pic {
   width: 20px;
   height: 20px;
