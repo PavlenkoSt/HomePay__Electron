@@ -11,5 +11,4 @@ export enum StatisticsTabsEnum {
 
 export enum StockTabsEnum {
   STOCK_LIST = 'STOCK_LIST',
-  DELIVERY = 'DELIVERY',
 }
