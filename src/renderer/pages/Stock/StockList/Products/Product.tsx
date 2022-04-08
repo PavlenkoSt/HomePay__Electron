@@ -1,12 +1,13 @@
 import { FC, useCallback, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 
-import IProduct from 'renderer/types/IProduct'
-import RemoveProductModal from './RemoveProductModal'
-import Options from './Options'
-import AddProductModal from './AddProductModal'
-import MoveModal from './MoveModal'
 import { useStore } from 'renderer/store'
+import IProduct from 'renderer/types/IProduct'
+import Options from './Options'
+import RemoveProductModal from './RemoveProductModal'
+import AddProductModal from './AddProductModal'
+import DeliveryModal from './DeliveryModal'
+import MoveModal from './MoveModal'
 
 import styles from './Product.module.scss'
 
@@ -22,6 +23,7 @@ const Product: FC<ProductPropsType> = ({ product }) => {
   const [optionsVisible, setOptionsVisible] = useState(false)
   const [editModalVisible, setEditModalVisible] = useState(false)
   const [moveModal, setMoveModal] = useState(false)
+  const [deliveryModal, setDeliveryModal] = useState(false)
 
   const { productsStore } = useStore()
 
@@ -51,7 +53,7 @@ const Product: FC<ProductPropsType> = ({ product }) => {
         <td>{product.price.margin.percent}</td>
         <td>{product.count}</td>
         <td className={styles.action}>
-          <div onClick={() => {}} className={styles.btn} title="Завоз">
+          <div onClick={() => setDeliveryModal(true)} className={styles.btn} title="Завоз">
             <div className={styles.addBtn}>+</div>
           </div>
           <div
@@ -86,6 +88,7 @@ const Product: FC<ProductPropsType> = ({ product }) => {
         editId={product.id}
       />
       <MoveModal visible={moveModal} setVisible={setMoveModal} product={product} />
+      <DeliveryModal visible={deliveryModal} setVisible={setDeliveryModal} product={product} />
     </>
   )
 }

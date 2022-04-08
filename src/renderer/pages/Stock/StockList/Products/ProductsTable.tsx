@@ -1,8 +1,9 @@
-import { observer } from 'mobx-react-lite'
 import { FC } from 'react'
+import { observer } from 'mobx-react-lite'
 
-import { useStore } from 'renderer/store'
 import Product from './Product'
+import { useStore } from 'renderer/store'
+import useSearchProduct from 'renderer/hooks/products/useSearchProduct'
 
 import styles from './ProductsTable.module.scss'
 
@@ -13,10 +14,7 @@ type ProductsTablePropsType = {
 const ProductsTable: FC<ProductsTablePropsType> = ({ search }) => {
   const { productsStore } = useStore()
 
-  const sortedProducts = productsStore
-    .activeCategoryProducts()
-    .slice()
-    .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
+  const { sortedProducts } = useSearchProduct({ search })
 
   if (!sortedProducts.length) {
     if (search) {

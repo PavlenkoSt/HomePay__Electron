@@ -9,24 +9,9 @@ class ProductsStore {
   @observable categories: ICategory[] = []
   @observable products: IProduct[] = []
   @observable activeCategoryId: number | null | 'all-products' = null
-  @observable searchableProducts: IProduct[] = []
 
   constructor() {
     makeAutoObservable(this)
-  }
-
-  @action setSearchableProduct(value: string) {
-    if (this.activeCategoryId === 'all-products') {
-      this.searchableProducts = this.products.filter((product) =>
-        product.name.toLowerCase().includes(value.toLowerCase())
-      )
-    } else {
-      this.searchableProducts = this.products.filter(
-        (product) =>
-          product.categoryId === this.activeCategoryId &&
-          product.name.toLowerCase().includes(value.toLowerCase())
-      )
-    }
   }
 
   @action setActiveCategoryId(categoryId: number | null | 'all-products') {
@@ -210,14 +195,6 @@ class ProductsStore {
     return (
       this.categories.find((category) => category.id === this.activeCategoryId)?.productsCount || 0
     )
-  }
-
-  @computed activeCategoryProducts() {
-    if (this.activeCategoryId === 'all-products') {
-      return this.searchableProducts
-    }
-
-    return this.searchableProducts.filter((product) => product.categoryId === this.activeCategoryId)
   }
 
   @computed sortedCategories() {
