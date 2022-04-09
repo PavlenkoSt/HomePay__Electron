@@ -77,6 +77,16 @@ class ProductsStore {
     this.saveCategories([category, ...this.categories.filter((cat) => cat.id !== categoryId)])
   }
 
+  @action deliveryProduct(productId: number, count: number) {
+    const target = this.products.find((product) => product.id === productId)
+
+    if (!target) return
+
+    target.count = +target.count + +count
+
+    this.saveProducts([...this.products.filter((product) => product.id !== productId), target])
+  }
+
   @action moveProductsToOtherCategory(products: IProduct[]) {
     const ids = products.map((product) => product.id)
 
