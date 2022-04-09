@@ -48,6 +48,12 @@ const useAddProduct = ({ setVisible, initialValues, editId }: useAddProductProps
     }
   }, [productsStore.activeCategoryId])
 
+  useEffect(() => {
+    if (initialValues?.count) {
+      setInitialCount(initialValues?.count)
+    }
+  }, [productsStore.products])
+
   const close = useCallback(() => {
     if (!initialValues) {
       setName('')
