@@ -1,31 +1,21 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
+
 import WithNavbar from 'renderer/layouts/WithNavbar'
+import { useStore } from 'renderer/store'
 
 import styles from './styles.module.scss'
 
 const Home = () => {
-  const [state, setState] = useState('')
-  const [val, setVal] = useState('')
+  const { moneyStore } = useStore()
+
+  useEffect(() => {
+    moneyStore.init()
+  }, [])
 
   return (
     <WithNavbar>
       <div className={styles.container}>
-        <div>{state}</div>
-        <button
-          onClick={() => {
-            setState(window.electron.store.get('foo'))
-          }}
-        >
-          get!
-        </button>
-        <input value={val} onChange={(e) => setVal(e.target.value)} />
-        <button
-          onClick={() => {
-            console.log(window.electron.store.set('foo', val))
-          }}
-        >
-          set!
-        </button>
+        <div className={styles.bill}>Текущий баланс: {moneyStore.bill} ₴</div>
       </div>
     </WithNavbar>
   )

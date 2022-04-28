@@ -1,5 +1,7 @@
 import { action, makeAutoObservable, observable } from 'mobx'
 
+import moneyApi from 'renderer/api/money.api'
+
 class MoneyStore {
   constructor() {
     makeAutoObservable(this)
@@ -18,6 +20,12 @@ class MoneyStore {
   @action outcome(minus: number) {
     this.bill = this.bill - minus
   }
+
+  @action init() {
+    const bill = moneyApi.getMoney()
+
+    this.setBill(bill)
+  }
 }
 
-export default new MoneyStore()
+export default MoneyStore

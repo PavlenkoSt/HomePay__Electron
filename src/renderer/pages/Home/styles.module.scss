@@ -1,6 +1,10 @@
 .container {
   min-height: calc(100vh - 50px);
-  align-items: center;
-  justify-content: center;
-  display: flex;
+  padding: 15px;
+}
+
+.bill {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
 }
