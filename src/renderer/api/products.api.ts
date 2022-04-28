@@ -19,8 +19,6 @@ const productsApi = {
   setProducts: (products: IProduct[]) => {
     window.electron.store.set(ProductsApiKeys.PRODUCTS, products)
   },
-  editProduct: () => {},
-  removeProduct: () => {},
 }
 
 export default productsApi
