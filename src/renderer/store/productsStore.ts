@@ -177,17 +177,8 @@ class ProductsStore {
     const categories = productsApi.getCategories()
     const products = productsApi.getProducts()
 
-    // need check
-    if (!categories) {
-      productsApi.setCategories([])
-    }
-
-    if (!products) {
-      productsApi.setProducts([])
-    }
-
-    this.setCategories(categories)
-    this.setProducts(products)
+    this.setCategories(categories || [])
+    this.setProducts(products || [])
   }
 
   @computed activeCategoryName() {
@@ -205,6 +196,20 @@ class ProductsStore {
     return (
       this.categories.find((category) => category.id === this.activeCategoryId)?.productsCount || 0
     )
+  }
+
+  @computed retailMoneyInProducts() {
+    const sum = this.products.reduce((acc, cur) => {
+      if (cur.count !== 0) {
+        return acc + cur.price.retail * cur.count
+      } else {
+        return acc
+      }
+    }, 0)
+
+    const isFloat = Number(sum) === sum && sum % 1 !== 0
+
+    return isFloat ? sum.toFixed(2) : sum
   }
 
   @computed sortedCategories() {
