@@ -42,6 +42,7 @@ const SelectedList: FC<SelectedListPropsType> = ({ selectedProducts, setSelected
             name={product.name}
             number={i + 1}
             count={product.count}
+            cost={product.price.wholesale}
             currentCount={product.currentCount}
             changeCount={changeCount}
           />

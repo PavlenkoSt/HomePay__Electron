@@ -99,17 +99,18 @@
   }
 }
 
-.stock {
+.textItem {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 }
 
-.stockLabel {
+.textItemLabel {
   font-size: 14px;
   margin-right: 5px;
 }
 
-.stockNumber {
+.textItemNumber {
   font-weight: 600;
   color: #333;
 }

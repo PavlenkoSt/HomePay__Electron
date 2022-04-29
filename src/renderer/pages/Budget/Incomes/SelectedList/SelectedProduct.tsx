@@ -10,6 +10,7 @@ type SelectedProductPropsType = {
   number: number
   id: number
   count: number
+  cost: number
   currentCount: number
   changeCount: (id: number, mode: 'increment' | 'decrement') => void
 }
@@ -19,9 +20,13 @@ const SelectedProduct: FC<SelectedProductPropsType> = ({
   number,
   id,
   count,
+  cost,
   currentCount,
   changeCount,
 }) => {
+  const totalItemCost = currentCount * cost
+  const isFloat = Number(totalItemCost) === totalItemCost && totalItemCost % 1 !== 0
+
   return (
     <div className={styles.item}>
       <div className={styles.header}>
@@ -64,15 +69,15 @@ const SelectedProduct: FC<SelectedProductPropsType> = ({
                 </div>
               </div>
             </div>
-            <div className={styles.stock}>
-              <div className={styles.stockLabel}>Выбрано на сумму:</div>
-              <div className={styles.stockNumber}>
-                посчитать и приделать кнопку закрытия на айтем
+            <div className={styles.textItem}>
+              <div className={styles.textItemLabel}>Выбрано на сумму:</div>
+              <div className={styles.TextItemNumber}>
+                {`${isFloat ? totalItemCost.toFixed(2) : totalItemCost} ₴`}
               </div>
             </div>
-            <div className={styles.stock}>
-              <div className={styles.stockLabel}>Всего на складе:</div>
-              <div className={styles.stockNumber}>{count}</div>
+            <div className={styles.textItem}>
+              <div className={styles.textItemLabel}>Всего на складе:</div>
+              <div className={styles.TextItemNumber}>{count}</div>
             </div>
           </>
         ) : (
