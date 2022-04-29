@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite'
+import { useEffect } from 'react'
 
 import Subbar from 'renderer/components/Navbars/Subbar'
 import WithNavbar from 'renderer/layouts/WithNavbar'
@@ -9,9 +10,13 @@ import Incomes from './Incomes'
 import Outcomes from './Outcomes'
 
 const Budget = () => {
-  const { routesStore } = useStore()
+  const { routesStore, productsStore } = useStore()
 
   const { budgetRoute, setBudgetRoute } = routesStore
+
+  useEffect(() => {
+    productsStore.init()
+  }, [])
 
   return (
     <WithNavbar>
