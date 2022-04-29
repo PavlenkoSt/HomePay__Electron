@@ -12,3 +12,7 @@ export default interface IProduct {
   count: number
   categoryId: number
 }
+
+export interface IProductWithCurrentCount extends IProduct {
+  currentCount: number
+}

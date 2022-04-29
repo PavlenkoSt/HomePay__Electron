@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react'
 
 import { useStore } from 'renderer/store'
-import IProduct from 'renderer/types/IProduct'
+import { IProductWithCurrentCount } from 'renderer/types/IProduct'
 
 const useIncome = () => {
   const { productsStore } = useStore()
 
-  const [selectedProducts, setSelectedProducts] = useState<IProduct[]>([])
+  const [selectedProducts, setSelectedProducts] = useState<IProductWithCurrentCount[]>([])
 
   const [sum, setSum] = useState(0)
   const [sumError, setSumError] = useState(false)

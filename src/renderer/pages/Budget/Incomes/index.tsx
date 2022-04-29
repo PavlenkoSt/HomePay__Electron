@@ -19,11 +19,21 @@ const Incomes = () => {
             noOptionsMessage={() => <div>Нет доступных товаров</div>}
             options={productsOptions}
             onChange={(options) => {
-              setSelectedProducts(options.map((option) => option.product))
+              setSelectedProducts(
+                options.map((option) => ({
+                  ...option.product,
+                  currentCount: option.product.count > 0 ? 1 : 0,
+                }))
+              )
             }}
           />
         </div>
-        {!!selectedProducts.length && <SelectedList selectedProducts={selectedProducts} />}
+        {!!selectedProducts.length && (
+          <SelectedList
+            selectedProducts={selectedProducts}
+            setSelectedProducts={setSelectedProducts}
+          />
+        )}
         {/* <Input
           label="Сумма"
           value={sum}

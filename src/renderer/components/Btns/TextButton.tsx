@@ -12,11 +12,13 @@ export enum ButtonTypeEnum {
 type TextButtonPropsType = {
   type?: ButtonTypeEnum
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined
+  small?: boolean
 }
 
 const TextButton: FC<TextButtonPropsType> = ({
   children,
   onClick,
+  small,
   type = ButtonTypeEnum.DEFAULT,
 }) => {
   const typeClass =
@@ -27,7 +29,7 @@ const TextButton: FC<TextButtonPropsType> = ({
       : styles.default
 
   return (
-    <button onClick={onClick} className={classNames(styles.btn, typeClass)}>
+    <button onClick={onClick} className={classNames(styles.btn, typeClass, small && styles.small)}>
       {children}
     </button>
   )
