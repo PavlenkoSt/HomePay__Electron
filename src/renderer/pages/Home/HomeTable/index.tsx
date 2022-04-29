@@ -11,7 +11,6 @@ const HomeTable = () => {
     <table
       className={styles.table}
       //@ts-ignore
-      borderColor="#eea300"
       border="1"
       cellPadding={4}
       cellSpacing={0}
