@@ -17,7 +17,14 @@ const Incomes = () => {
             isSearchable
             placeholder="Товары на продажу"
             noOptionsMessage={() => <div>Нет доступных товаров</div>}
+            //@ts-ignore
             options={productsOptions}
+            value={selectedProducts.map((product) => ({
+              value: product.id,
+              label: product.name,
+              currentCount: product.currentCount,
+              product: product,
+            }))}
             onChange={(options) => {
               setSelectedProducts(
                 options.map((option) => ({

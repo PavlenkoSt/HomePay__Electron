@@ -1,6 +1,7 @@
-import classNames from 'classnames'
 import { FC } from 'react'
+import classNames from 'classnames'
 
+import CloseBtn from 'renderer/components/Btns/CloseBtn'
 import TextButton, { ButtonTypeEnum } from 'renderer/components/Btns/TextButton'
 
 import styles from './SelectedProduct.module.scss'
@@ -13,6 +14,7 @@ type SelectedProductPropsType = {
   cost: number
   currentCount: number
   changeCount: (id: number, mode: 'increment' | 'decrement') => void
+  removeItem: (id: number) => void
 }
 
 const SelectedProduct: FC<SelectedProductPropsType> = ({
@@ -23,12 +25,16 @@ const SelectedProduct: FC<SelectedProductPropsType> = ({
   cost,
   currentCount,
   changeCount,
+  removeItem,
 }) => {
   const totalItemCost = currentCount * cost
   const isFloat = Number(totalItemCost) === totalItemCost && totalItemCost % 1 !== 0
 
   return (
     <div className={styles.item}>
+      <div className={styles.close}>
+        <CloseBtn small setVisible={() => removeItem(id)} />
+      </div>
       <div className={styles.header}>
         <div className={styles.number}>{number}</div>
         <div className={styles.name}>{name}</div>
@@ -89,7 +95,9 @@ const SelectedProduct: FC<SelectedProductPropsType> = ({
                   Есть на складе
                 </TextButton>
               </div>
-              <TextButton small>Убрать со списка</TextButton>
+              <TextButton small onClick={() => removeItem(id)}>
+                Убрать со списка
+              </TextButton>
             </div>
           </div>
         )}

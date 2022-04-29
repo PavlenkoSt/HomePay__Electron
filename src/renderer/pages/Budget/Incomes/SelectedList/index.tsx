@@ -31,6 +31,10 @@ const SelectedList: FC<SelectedListPropsType> = ({ selectedProducts, setSelected
     })
   }, [])
 
+  const removeItem = useCallback((id: number) => {
+    setSelectedProducts((prevProducts) => [...prevProducts.filter((product) => product.id !== id)])
+  }, [])
+
   return (
     <div>
       <h4 className={styles.title}>Выбранные товары</h4>
@@ -45,6 +49,7 @@ const SelectedList: FC<SelectedListPropsType> = ({ selectedProducts, setSelected
             cost={product.price.wholesale}
             currentCount={product.currentCount}
             changeCount={changeCount}
+            removeItem={removeItem}
           />
         ))}
       </div>
