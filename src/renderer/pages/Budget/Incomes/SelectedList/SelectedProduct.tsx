@@ -2,7 +2,8 @@ import { FC } from 'react'
 import classNames from 'classnames'
 
 import CloseBtn from 'renderer/components/Btns/CloseBtn'
-import TextButton, { ButtonTypeEnum } from 'renderer/components/Btns/TextButton'
+import TextButton from 'renderer/components/Btns/TextButton'
+import formatSumWithFloat from 'renderer/utilts/formatWithFloat'
 
 import styles from './SelectedProduct.module.scss'
 
@@ -27,9 +28,6 @@ const SelectedProduct: FC<SelectedProductPropsType> = ({
   changeCount,
   removeItem,
 }) => {
-  const totalItemCost = currentCount * cost
-  const isFloat = Number(totalItemCost) === totalItemCost && totalItemCost % 1 !== 0
-
   return (
     <div className={styles.item}>
       <div className={styles.close}>
@@ -78,7 +76,7 @@ const SelectedProduct: FC<SelectedProductPropsType> = ({
             <div className={styles.textItem}>
               <div className={styles.textItemLabel}>Выбрано на сумму:</div>
               <div className={styles.TextItemNumber}>
-                {`${isFloat ? totalItemCost.toFixed(2) : totalItemCost} ₴`}
+                {formatSumWithFloat(currentCount * cost, true)}
               </div>
             </div>
             <div className={styles.textItem}>

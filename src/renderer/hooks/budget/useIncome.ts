@@ -8,8 +8,10 @@ const useIncome = () => {
 
   const [selectedProducts, setSelectedProducts] = useState<IProductWithCurrentCount[]>([])
 
-  const [sum, setSum] = useState(0)
-  const [sumError, setSumError] = useState(false)
+  const selectedProductsSum = useMemo(
+    () => selectedProducts.reduce((acc, cur) => acc + cur.price.wholesale * cur.currentCount, 0),
+    [selectedProducts]
+  )
 
   const productsOptions = useMemo(
     () =>
@@ -21,7 +23,7 @@ const useIncome = () => {
     [productsStore.categories]
   )
 
-  return { selectedProducts, setSelectedProducts, productsOptions }
+  return { selectedProducts, setSelectedProducts, productsOptions, selectedProductsSum }
 }
 
 export default useIncome

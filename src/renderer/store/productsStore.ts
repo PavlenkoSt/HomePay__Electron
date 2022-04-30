@@ -1,3 +1,4 @@
+import formatWithFloat from 'renderer/utilts/formatWithFloat'
 import { action, computed, makeAutoObservable, observable } from 'mobx'
 
 import JSONCorrect from 'renderer/helpers/JSONCorrect'
@@ -207,9 +208,7 @@ class ProductsStore {
       }
     }, 0)
 
-    const isFloat = Number(sum) === sum && sum % 1 !== 0
-
-    return isFloat ? sum.toFixed(2) : sum
+    return formatWithFloat(sum)
   }
 
   @computed sortedCategories() {

@@ -13,3 +13,17 @@
 .item {
   margin-bottom: 20px;
 }
+
+.fullSum {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.fullSumLabel {
+  margin-right: 10px;
+}
+
+.fullSumNumber {
+  font-weight: 600;
+}

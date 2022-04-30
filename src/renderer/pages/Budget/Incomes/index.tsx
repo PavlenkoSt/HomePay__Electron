@@ -1,12 +1,14 @@
 import Select from 'react-select'
 
 import useIncome from 'renderer/hooks/budget/useIncome'
+import formatWithFloat from 'renderer/utilts/formatWithFloat'
 import SelectedList from './SelectedList'
 
 import styles from './styles.module.scss'
 
 const Incomes = () => {
-  const { selectedProducts, setSelectedProducts, productsOptions } = useIncome()
+  const { selectedProducts, setSelectedProducts, productsOptions, selectedProductsSum } =
+    useIncome()
 
   return (
     <div className={styles.container}>
@@ -41,6 +43,10 @@ const Incomes = () => {
             setSelectedProducts={setSelectedProducts}
           />
         )}
+        <div className={styles.fullSum}>
+          <div className={styles.fullSumLabel}>Всего к оплате:</div>
+          <div className={styles.fullSumNumber}>{formatWithFloat(selectedProductsSum, true)}</div>
+        </div>
         {/* <Input
           label="Сумма"
           value={sum}
