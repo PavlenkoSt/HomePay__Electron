@@ -6,7 +6,7 @@ const WithNavbar: FC = ({ children }) => {
   return (
     <div>
       <Navbar />
-      {children}
+      <div style={{ paddingTop: 50 }}>{children}</div>
     </div>
   )
 }

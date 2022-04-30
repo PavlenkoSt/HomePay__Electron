@@ -1,5 +1,5 @@
 .container {
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 .title {
@@ -7,4 +7,16 @@
   color: #333;
   margin-bottom: 10px;
   font-size: 18px;
+}
+
+.planList {
+  margin-bottom: 50px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding-bottom: 50px;
 }
