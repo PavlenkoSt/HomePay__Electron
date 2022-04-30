@@ -13,6 +13,11 @@ class MoneyStore {
     this.bill = bill
   }
 
+  @action setBillDB(bill: number) {
+    this.setBill(bill)
+    moneyApi.setMoney(bill)
+  }
+
   @action income(plus: number) {
     this.bill = this.bill + plus
   }

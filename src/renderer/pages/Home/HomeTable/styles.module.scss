@@ -19,3 +19,26 @@
   color: #333;
   font-weight: 500;
 }
+
+.valueBill {
+  position: relative;
+}
+
+.edit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  height: 100%;
+  padding: 0 15px;
+  background-color: #eea300;
+}
+
+.editBtn {
+  width: 20px;
+  height: 20px;
+}
