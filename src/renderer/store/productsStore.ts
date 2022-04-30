@@ -15,6 +15,8 @@ class ProductsStore {
     makeAutoObservable(this)
   }
 
+  //categories
+
   @action setActiveCategoryId(categoryId: number | null | 'all-products') {
     this.activeCategoryId = categoryId
   }
@@ -78,6 +80,29 @@ class ProductsStore {
     this.saveCategories([category, ...this.categories.filter((cat) => cat.id !== categoryId)])
   }
 
+  @action changeCategoryProductCount(categoryId: number, type: 'increment' | 'decrement') {
+    const findedCategory = this.categories.find((cat) => cat.id === categoryId)
+
+    if (!findedCategory) return
+
+    if (type === 'increment') {
+      findedCategory.productsCount += 1
+    } else {
+      findedCategory.productsCount -= 1
+    }
+
+    this.saveCategories([
+      findedCategory,
+      ...this.categories.filter((category) => category.id !== categoryId),
+    ])
+  }
+
+  //products
+
+  @action setProducts(products: IProduct[]) {
+    this.products = products
+  }
+
   @action deliveryProduct(productId: number, count: number) {
     const target = this.products.find((product) => product.id === productId)
 
@@ -125,39 +150,29 @@ class ProductsStore {
     this.saveProducts([...this.products.filter((prod) => prod.id !== editId), product])
   }
 
-  @action changeCategoryProductCount(categoryId: number, type: 'increment' | 'decrement') {
-    const findedCategory = this.categories.find((cat) => cat.id === categoryId)
+  @action changeProductCounterDB(
+    productId: number,
+    count: number,
+    mode: 'increment' | 'decrement'
+  ) {
+    this.init()
 
-    if (!findedCategory) return
+    const products: IProduct[] = []
 
-    if (type === 'increment') {
-      findedCategory.productsCount += 1
-    } else {
-      findedCategory.productsCount -= 1
-    }
+    this.products.forEach((product) => {
+      if (product.id === productId) {
+        if (mode === 'increment') {
+          product.count = product.count + count
+        } else {
+          product.count = product.count - count
+        }
+      }
 
-    this.saveCategories([
-      findedCategory,
-      ...this.categories.filter((category) => category.id !== categoryId),
-    ])
-  }
+      products.push(product)
+    })
 
-  @action saveProducts(productsProxy: IProduct[]) {
-    const products = JSONCorrect(productsProxy)
-
-    this.setProducts(products)
-    productsApi.setProducts(products)
-  }
-
-  @action saveCategories(categoriesProxy: ICategory[]) {
-    const categories = JSONCorrect(categoriesProxy)
-
-    this.setCategories(categories)
-    productsApi.setCategories(categories)
-  }
-
-  @action setProducts(products: IProduct[]) {
-    this.products = products
+    this.saveProducts(products)
+    this.init()
   }
 
   @action removeProductsFromListByIdsArr(idsArr: number[]) {
@@ -174,6 +189,22 @@ class ProductsStore {
     return filteredProducts
   }
 
+  // savers, init
+
+  @action saveProducts(productsProxy: IProduct[]) {
+    const products = JSONCorrect(productsProxy)
+
+    this.setProducts(products)
+    productsApi.setProducts(products)
+  }
+
+  @action saveCategories(categoriesProxy: ICategory[]) {
+    const categories = JSONCorrect(categoriesProxy)
+
+    this.setCategories(categories)
+    productsApi.setCategories(categories)
+  }
+
   @action init() {
     const categories = productsApi.getCategories()
     const products = productsApi.getProducts()
@@ -181,6 +212,8 @@ class ProductsStore {
     this.setCategories(categories || [])
     this.setProducts(products || [])
   }
+
+  // computeds
 
   @computed activeCategoryName() {
     return (

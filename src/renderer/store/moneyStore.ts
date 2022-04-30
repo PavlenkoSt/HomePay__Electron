@@ -18,8 +18,12 @@ class MoneyStore {
   }
 
   @action incomeDB(plus: number) {
-    moneyApi.setMoney(this.bill + plus)
-    this.income(plus)
+    this.init()
+
+    const sum = this.bill + plus
+
+    this.setBill(sum)
+    moneyApi.setMoney(sum)
   }
 
   @action outcome(minus: number) {

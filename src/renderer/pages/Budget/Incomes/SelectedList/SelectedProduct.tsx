@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import classNames from 'classnames'
+import { observer } from 'mobx-react-lite'
 
 import CloseBtn from 'renderer/components/Btns/CloseBtn'
 import TextButton from 'renderer/components/Btns/TextButton'
@@ -99,4 +100,4 @@ const SelectedProduct: FC<SelectedProductPropsType> = ({
   )
 }
 
-export default SelectedProduct
+export default observer(SelectedProduct)

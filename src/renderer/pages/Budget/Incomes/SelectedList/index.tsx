@@ -1,4 +1,5 @@
 import { Dispatch, FC, SetStateAction, useCallback } from 'react'
+import { observer } from 'mobx-react-lite'
 import { IProductWithCurrentCount } from 'renderer/types/IProduct'
 
 import SelectedProduct from './SelectedProduct'
@@ -57,4 +58,4 @@ const SelectedList: FC<SelectedListPropsType> = ({ selectedProducts, setSelected
   )
 }
 
-export default SelectedList
+export default observer(SelectedList)

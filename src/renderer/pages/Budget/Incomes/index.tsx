@@ -1,4 +1,5 @@
 import Select from 'react-select'
+import { observer } from 'mobx-react-lite'
 
 import TextButton, { ButtonTypeEnum } from 'renderer/components/Btns/TextButton'
 import useIncome from 'renderer/hooks/budget/useIncome'
@@ -62,4 +63,4 @@ const Incomes = () => {
   )
 }
 
-export default Incomes
+export default observer(Incomes)

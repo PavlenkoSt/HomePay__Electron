@@ -1,10 +1,12 @@
 import { useCallback, useMemo, useState } from 'react'
 
+import ToastService from 'renderer/services/ToastService'
 import { useStore } from 'renderer/store'
 import { IProductWithCurrentCount } from 'renderer/types/IProduct'
+import ITransaction from 'renderer/types/ITransaction'
 
 const useIncome = () => {
-  const { productsStore } = useStore()
+  const { productsStore, historyStore } = useStore()
 
   const [selectedProducts, setSelectedProducts] = useState<IProductWithCurrentCount[]>([])
 
@@ -20,12 +22,28 @@ const useIncome = () => {
         label: product.name,
         product,
       })),
-    [productsStore.categories]
+    [productsStore.products, selectedProducts]
   )
 
   const pay = useCallback(() => {
-    
-  }, [])
+    const transaction: ITransaction = {
+      id: Date.now(),
+      date: new Date(),
+      money: selectedProductsSum,
+      productDetais: selectedProducts.map((product) => ({
+        productId: product.id,
+        count: product.currentCount,
+      })),
+    }
+
+    historyStore.addTransactionDB(transaction)
+
+    ToastService.showSuccess('Товары проданы')
+
+    setSelectedProducts([])
+
+    productsStore.init()
+  }, [selectedProductsSum])
 
   return { selectedProducts, setSelectedProducts, productsOptions, selectedProductsSum, pay }
 }
