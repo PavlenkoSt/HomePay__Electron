@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import CloseBtn from 'renderer/components/Btns/CloseBtn'
+import { PlanStatusEnum } from 'renderer/types/IPlan'
 
 import styles from './HomePlanItem.module.scss'
 
@@ -10,13 +11,14 @@ import inProgressPic from 'renderer/assets/inProgress.svg'
 
 type HomePlanItemPropsType = {
   removePlan: Function
+  status: PlanStatusEnum
 }
 
-const HomePlanItem: FC<HomePlanItemPropsType> = ({ removePlan }) => {
+const HomePlanItem: FC<HomePlanItemPropsType> = ({ removePlan, status }) => {
   const progress = 30
 
-  const startDate = new Date()
-  const endDate = new Date()
+  // const startDate = new Date()
+  // const endDate = new Date()
 
   return (
     <div className={styles.container}>
@@ -31,7 +33,16 @@ const HomePlanItem: FC<HomePlanItemPropsType> = ({ removePlan }) => {
       <div className={styles.header}>
         <div className={styles.label}>
           <div className={styles.statusPicContainer}>
-            <img className={styles.statusPic} src={inProgressPic} />
+            <img
+              className={styles.statusPic}
+              src={
+                status === PlanStatusEnum.DONE
+                  ? checkPic
+                  : status === PlanStatusEnum.IN_PROGRESS
+                  ? inProgressPic
+                  : failPic
+              }
+            />
           </div>
           <div className={styles.title}>This is the plan</div>
         </div>
