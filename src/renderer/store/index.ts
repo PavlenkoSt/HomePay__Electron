@@ -5,6 +5,7 @@ import MoneyStore from './moneyStore'
 import ProductsStore from './productsStore'
 import RoutesStore from './routesStore'
 import HistoryStore from './historyStore'
+import PlansStore from './plansStore'
 
 configure({ enforceActions: 'observed' })
 
@@ -13,6 +14,7 @@ class RootStore {
   @observable productsStore = new ProductsStore()
   @observable moneyStore = new MoneyStore()
   @observable historyStore = new HistoryStore()
+  @observable plansStore = new PlansStore()
 }
 
 const rootStore = new RootStore()
