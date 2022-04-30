@@ -7,6 +7,7 @@ import { IMonthPlan, IPlan } from 'renderer/types/IPlan'
 class PlansStore {
   @observable plans: IPlan[] = []
   @observable monthPlans: IMonthPlan[] = []
+  @observable autoContinueMonthPlan: boolean = false
 
   constructor() {
     makeAutoObservable(this)

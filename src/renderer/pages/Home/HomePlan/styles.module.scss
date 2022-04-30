@@ -1,5 +1,18 @@
 .container {
   margin-top: 50px;
+  display: flex;
+}
+
+.block {
+  width: 50%;
+
+  &:first-child {
+    padding-right: 15px;
+  }
+
+  &:last-child {
+    padding-left: 15px;
+  }
 }
 
 .title {
