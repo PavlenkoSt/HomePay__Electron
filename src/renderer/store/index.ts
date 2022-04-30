@@ -4,6 +4,7 @@ import { createContext, useContext } from 'react'
 import MoneyStore from './moneyStore'
 import ProductsStore from './productsStore'
 import RoutesStore from './routesStore'
+import HistoryStore from './historyStore'
 
 configure({ enforceActions: 'observed' })
 
@@ -11,6 +12,7 @@ class RootStore {
   @observable routesStore = new RoutesStore()
   @observable productsStore = new ProductsStore()
   @observable moneyStore = new MoneyStore()
+  @observable historyStore = new HistoryStore()
 }
 
 const rootStore = new RootStore()

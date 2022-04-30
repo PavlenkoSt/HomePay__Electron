@@ -23,7 +23,9 @@ const useIncome = () => {
     [productsStore.categories]
   )
 
-  const pay = useCallback(() => {}, [])
+  const pay = useCallback(() => {
+    
+  }, [])
 
   return { selectedProducts, setSelectedProducts, productsOptions, selectedProductsSum, pay }
 }
