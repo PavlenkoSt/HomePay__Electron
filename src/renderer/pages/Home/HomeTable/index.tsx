@@ -36,7 +36,7 @@ const HomeTable = () => {
           </tr>
           <tr className={styles.tr}>
             <td className={styles.option}>Товаров на складе на сумму</td>
-            <td className={styles.value}>{productsStore.retailMoneyInProducts()} ₴</td>
+            <td className={styles.value}>{productsStore.wholesaleMoneyInProducts()}</td>
           </tr>
           <tr className={styles.tr}>
             <td className={styles.option}>Продаж за сегодня на сумму</td>
@@ -44,10 +44,6 @@ const HomeTable = () => {
           </tr>
           <tr className={styles.tr}>
             <td className={styles.option}>Продаж в текущем месяце на сумму</td>
-            <td className={styles.value}></td>
-          </tr>
-          <tr className={styles.tr}>
-            <td className={styles.option}>Финансовый план на текущий месяц</td>
             <td className={styles.value}></td>
           </tr>
         </tbody>

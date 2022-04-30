@@ -232,16 +232,16 @@ class ProductsStore {
     )
   }
 
-  @computed retailMoneyInProducts() {
+  @computed wholesaleMoneyInProducts() {
     const sum = this.products.reduce((acc, cur) => {
       if (cur.count !== 0) {
-        return acc + cur.price.retail * cur.count
+        return acc + cur.price.wholesale * cur.count
       } else {
         return acc
       }
     }, 0)
 
-    return formatWithFloat(sum)
+    return formatWithFloat(sum, true)
   }
 
   @computed sortedCategories() {
