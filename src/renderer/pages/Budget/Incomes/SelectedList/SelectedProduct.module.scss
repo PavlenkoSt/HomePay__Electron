@@ -110,6 +110,10 @@
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .textItemLabel {
@@ -128,11 +132,5 @@
 }
 
 .btns {
-  display: flex;
-  align-items: center;
-  margin-top: 15px;
-}
-
-.btnHave {
-  margin-right: 20px;
+  margin-top: 10px;
 }

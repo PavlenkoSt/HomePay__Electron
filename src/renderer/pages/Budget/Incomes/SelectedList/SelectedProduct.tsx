@@ -90,11 +90,6 @@ const SelectedProduct: FC<SelectedProductPropsType> = ({
           <div>
             <div className={styles.noExist}>Данного товара нет на складе :(</div>
             <div className={styles.btns}>
-              <div className={styles.btnHave}>
-                <TextButton small type={ButtonTypeEnum.PRIMARY}>
-                  Есть на складе
-                </TextButton>
-              </div>
               <TextButton small onClick={() => removeItem(id)}>
                 Убрать со списка
               </TextButton>
