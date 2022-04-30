@@ -9,11 +9,12 @@ import HomePlan from './HomePlan'
 import styles from './styles.module.scss'
 
 const Home = () => {
-  const { moneyStore, productsStore } = useStore()
+  const { moneyStore, productsStore, plansStore } = useStore()
 
   useEffect(() => {
     moneyStore.init()
     productsStore.init()
+    plansStore.init()
   }, [])
 
   return (

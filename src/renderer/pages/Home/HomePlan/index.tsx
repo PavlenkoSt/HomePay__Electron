@@ -1,27 +1,58 @@
+import { observer } from 'mobx-react-lite'
+import { useCallback } from 'react'
+
 import TextButton from 'renderer/components/Btns/TextButton'
+import AddBtn from 'renderer/components/Btns/AddBtn'
+import { useStore } from 'renderer/store'
 import HomePlanItem from './HomePlanItem'
 
 import styles from './styles.module.scss'
 
 const HomePlan = () => {
+  const { plansStore } = useStore()
+
+  const removePlan = useCallback(() => {}, [])
+
   return (
     <div className={styles.container}>
       <h4 className={styles.title}>Ежемесячные финансовые планы</h4>
       <div className={styles.planList}>
-        {/* <HomePlanItem removePlan={() => {}} /> */}
-        <div className={styles.btn}>
-          <TextButton>Показать ещё</TextButton>
+        {plansStore.monthPlans.length ? (
+          plansStore.monthPlans.map((plan) => (
+            <HomePlanItem removePlan={removePlan} status={plan.status} />
+          ))
+        ) : (
+          <div className={styles.message}>Пока не назначено ежемесячный план</div>
+        )}
+        <div className={styles.btns}>
+          {!!plansStore.monthPlans.length && plansStore.monthPlans.length > 5 && (
+            <div className={styles.btn}>
+              <TextButton>Показать ещё</TextButton>
+            </div>
+          )}
+          <AddBtn title="Добавить план" action={() => {}} />
         </div>
       </div>
       <h4 className={styles.title}>Дополнительные финансовые планы</h4>
       <div>
-        {/* <HomePlanItem removePlan={() => {}} /> */}
-        <div className={styles.btn}>
-          <TextButton>Показать ещё</TextButton>
+        {plansStore.plans.length ? (
+          plansStore.plans.map((plan) => (
+            <HomePlanItem removePlan={removePlan} status={plan.status} />
+          ))
+        ) : (
+          <div className={styles.message}>Пока не назначено домолнительных планов</div>
+        )}
+        <div className={styles.btns}>
+          {!!plansStore.plans.length && plansStore.plans.length > 5 && (
+            <div className={styles.btn}>
+              <TextButton>Показать ещё</TextButton>
+            </div>
+          )}
+          <AddBtn title="Добавить план" action={() => {}} />
         </div>
       </div>
     </div>
   )
 }
 
-export default HomePlan
+export default observer(HomePlan)

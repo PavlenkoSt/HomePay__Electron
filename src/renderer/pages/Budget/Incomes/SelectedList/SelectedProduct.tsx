@@ -46,20 +46,6 @@ const SelectedProduct: FC<SelectedProductPropsType> = ({
               <div className={styles.counter}>
                 <div
                   onClick={() => {
-                    if (currentCount !== count) {
-                      changeCount(id, 'increment')
-                    }
-                  }}
-                  className={classNames(
-                    styles.counterBtn,
-                    currentCount === count && styles.disable
-                  )}
-                >
-                  +
-                </div>
-                <div className={styles.counterView}>{currentCount}</div>
-                <div
-                  onClick={() => {
                     if (currentCount !== 1) {
                       changeCount(id, 'decrement')
                     }
@@ -71,6 +57,20 @@ const SelectedProduct: FC<SelectedProductPropsType> = ({
                   )}
                 >
                   –
+                </div>
+                <div className={styles.counterView}>{currentCount}</div>
+                <div
+                  onClick={() => {
+                    if (currentCount !== count) {
+                      changeCount(id, 'increment')
+                    }
+                  }}
+                  className={classNames(
+                    styles.counterBtn,
+                    currentCount === count && styles.disable
+                  )}
+                >
+                  +
                 </div>
               </div>
             </div>

@@ -15,12 +15,13 @@ import 'react-toastify/dist/ReactToastify.css'
 import '@djthoms/pretty-checkbox'
 
 const App = () => {
-  const { historyStore, moneyStore, productsStore } = useStore()
+  const { historyStore, moneyStore, productsStore, plansStore } = useStore()
 
   useEffect(() => {
     historyStore.init()
     moneyStore.init()
     productsStore.init()
+    plansStore.init()
   }, [])
 
   return (

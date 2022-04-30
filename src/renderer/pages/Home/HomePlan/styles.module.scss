@@ -13,10 +13,23 @@
   margin-bottom: 50px;
 }
 
+.btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
 .btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
   padding-bottom: 50px;
+}
+
+.message {
+  text-align: center;
+  color: #333;
+  font-style: italic;
 }

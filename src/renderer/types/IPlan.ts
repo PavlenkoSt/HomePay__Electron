@@ -16,4 +16,5 @@ export enum PlanStatusEnum {
   DONE = 'done',
   IN_PROGRESS = 'in_progress',
   FAILED = 'failed',
+  WAITING = 'waiting',
 }
