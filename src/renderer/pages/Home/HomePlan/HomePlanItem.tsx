@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import CloseBtn from 'renderer/components/Btns/CloseBtn'
 
 import styles from './HomePlanItem.module.scss'
@@ -5,7 +7,6 @@ import styles from './HomePlanItem.module.scss'
 import checkPic from 'renderer/assets/check.svg'
 import failPic from 'renderer/assets/fail.svg'
 import inProgressPic from 'renderer/assets/inProgress.svg'
-import { FC } from 'react'
 
 type HomePlanItemPropsType = {
   removePlan: Function
