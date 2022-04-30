@@ -1,6 +1,14 @@
 .container {
   border-bottom: 1px solid #a1a1a1;
   padding: 15px 20px;
+  position: relative;
+}
+
+.removeContainer {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 1;
 }
 
 .header {
@@ -21,9 +29,16 @@
 }
 
 .progress {
-  padding-top: 3px;
   font-size: 14px;
   color: #333;
+  border: 1px solid #333;
+  height: 30px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 187, 0, 0.241);
 }
 
 .title {
@@ -48,6 +63,7 @@
 
 .lineContainer {
   display: flex;
+  margin-bottom: 10px;
 }
 
 .line {
@@ -63,4 +79,14 @@
   top: 0;
   bottom: 0;
   left: 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date {
+  font-size: 14px;
+  color: #333;
 }

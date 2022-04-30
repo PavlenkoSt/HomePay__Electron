@@ -5,9 +5,9 @@ import styles from './styles.module.scss'
 const HomePlan = () => {
   return (
     <div className={styles.container}>
-      <h4 className={styles.title}>Финансовый план</h4>
+      <h4 className={styles.title}>Дополнительные финансовые планы</h4>
       <div>
-        <HomePlanItem />
+        <HomePlanItem removePlan={() => {}} />
       </div>
     </div>
   )
