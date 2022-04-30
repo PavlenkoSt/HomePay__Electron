@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 import { useStore } from 'renderer/store'
 import { IProductWithCurrentCount } from 'renderer/types/IProduct'
@@ -23,7 +23,9 @@ const useIncome = () => {
     [productsStore.categories]
   )
 
-  return { selectedProducts, setSelectedProducts, productsOptions, selectedProductsSum }
+  const pay = useCallback(() => {}, [])
+
+  return { selectedProducts, setSelectedProducts, productsOptions, selectedProductsSum, pay }
 }
 
 export default useIncome

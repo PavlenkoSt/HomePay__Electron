@@ -1,5 +1,6 @@
 import Select from 'react-select'
 
+import TextButton, { ButtonTypeEnum } from 'renderer/components/Btns/TextButton'
 import useIncome from 'renderer/hooks/budget/useIncome'
 import formatWithFloat from 'renderer/utilts/formatWithFloat'
 import SelectedList from './SelectedList'
@@ -7,7 +8,7 @@ import SelectedList from './SelectedList'
 import styles from './styles.module.scss'
 
 const Incomes = () => {
-  const { selectedProducts, setSelectedProducts, productsOptions, selectedProductsSum } =
+  const { selectedProducts, setSelectedProducts, productsOptions, selectedProductsSum, pay } =
     useIncome()
 
   return (
@@ -43,18 +44,19 @@ const Incomes = () => {
             setSelectedProducts={setSelectedProducts}
           />
         )}
-        <div className={styles.fullSum}>
-          <div className={styles.fullSumLabel}>Всего к оплате:</div>
-          <div className={styles.fullSumNumber}>{formatWithFloat(selectedProductsSum, true)}</div>
-        </div>
-        {/* <Input
-          label="Сумма"
-          value={sum}
-          setValue={setSum}
-          error={sumError}
-          errorMessage="Значение не может быть меньше нуля"
-          type="number"
-        /> */}
+        {selectedProductsSum > 0 && (
+          <div className={styles.footer}>
+            <div className={styles.fullSum}>
+              <div className={styles.fullSumLabel}>Всего к оплате:</div>
+              <div className={styles.fullSumNumber}>
+                {formatWithFloat(selectedProductsSum, true)}
+              </div>
+            </div>
+            <TextButton type={ButtonTypeEnum.PRIMARY} onClick={pay}>
+              Оплечено
+            </TextButton>
+          </div>
+        )}
       </div>
     </div>
   )
