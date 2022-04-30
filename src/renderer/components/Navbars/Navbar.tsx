@@ -23,6 +23,7 @@ const Navbar = () => {
           key={link.id}
           to={link.to}
           className={`${styles.item} ${pathname === link.to && styles.active}`}
+          draggable={false}
         >
           {link.name}
         </Link>
