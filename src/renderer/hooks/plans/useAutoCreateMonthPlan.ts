@@ -4,7 +4,7 @@ import { useStore } from 'renderer/store'
 import { IMonthPlan, PlanStatusEnum } from 'renderer/types/IPlan'
 
 const useAutoCreateMonthPlan = () => {
-  const { plansStore } = useStore()
+  const { plansStore, historyStore } = useStore()
 
   const months = useMemo(
     () => [
@@ -51,6 +51,14 @@ const useAutoCreateMonthPlan = () => {
       plansStore.monthPlansSettings.sum &&
       !checkExistPlanForThisMonth(currentDate.label)
     ) {
+      const targetTransactionsSum = historyStore.transactions
+        .filter(
+          (transaction) =>
+            +new Date(transaction.date) >= +new Date(currentDate.thisMonthDate) &&
+            +new Date(transaction.date) <= +new Date(currentDate.nextMonthDate)
+        )
+        .reduce((acc, cur) => acc + cur.money, 0)
+
       const createdPlan: IMonthPlan = {
         id: Date.now(),
         title: currentDate.label,
@@ -60,7 +68,7 @@ const useAutoCreateMonthPlan = () => {
         },
         goal: plansStore.monthPlansSettings.sum,
         status: PlanStatusEnum.IN_PROGRESS,
-        state: 0,
+        state: targetTransactionsSum,
       }
 
       plansStore.addPlanMonthDB(createdPlan)

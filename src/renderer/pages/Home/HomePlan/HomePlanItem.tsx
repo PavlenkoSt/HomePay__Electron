@@ -30,7 +30,7 @@ const HomePlanItem: FC<HomePlanItemPropsType> = ({
   title,
   date,
 }) => {
-  const progress = useMemo(() => (state * 100) / goal, [goal, state])
+  const progress = useMemo(() => Math.round((state * 100) / goal), [goal, state])
 
   return (
     <div className={styles.container}>

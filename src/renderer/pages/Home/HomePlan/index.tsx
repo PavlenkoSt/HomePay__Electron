@@ -62,7 +62,14 @@ const HomePlan = () => {
         <div>
           {plansStore.plans.length ? (
             plansStore.plans.map((plan) => (
-              <HomePlanItem removePlan={removePlan} status={plan.status} />
+              <HomePlanItem
+                removePlan={removePlan}
+                status={plan.status}
+                title={plan.title}
+                date={plan.date}
+                goal={plan.goal}
+                state={plan.state}
+              />
             ))
           ) : (
             <div className={styles.message}>Пока не назначено дополнительных планов</div>
