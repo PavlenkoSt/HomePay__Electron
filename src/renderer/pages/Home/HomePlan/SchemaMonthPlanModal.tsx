@@ -1,74 +1,29 @@
-import { Dispatch, FC, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
-import { Checkbox, useCheckboxState } from 'pretty-checkbox-react'
+import { Dispatch, FC, SetStateAction } from 'react'
+import { Checkbox } from 'pretty-checkbox-react'
 
 import TextButton, { ButtonTypeEnum } from 'renderer/components/Btns/TextButton'
+import useSchemaMonthPlan from 'renderer/hooks/plans/useSchemaMonthPlan'
 import ModalWrapper from 'renderer/components/ModalWrapper'
 import Input from 'renderer/components/Form/Input'
-import { useStore } from 'renderer/store'
-import ToastService from 'renderer/services/ToastService'
 
 import styles from './AddMonthPlan.module.scss'
-
-const months = [
-  'Январь',
-  'Февраль',
-  'Март',
-  'Апрель',
-  'Май',
-  'Июнь',
-  'Июль',
-  'Август',
-  'Сентябрь',
-  'Октябрь',
-  'Ноябрь',
-  'Декабрь',
-]
 
 type AddMonthPlanPropsType = {
   visible: boolean
   setVisible: Dispatch<SetStateAction<boolean>>
 }
 
-const AddMonthPlan: FC<AddMonthPlanPropsType> = ({ visible, setVisible }) => {
-  const { plansStore } = useStore()
-
+const SchemaMonthPlanModal: FC<AddMonthPlanPropsType> = ({ visible, setVisible }) => {
   const {
-    state: autoContinueMonthPlan,
-    setState: setAutoContinueMonthPlan,
+    currentDate,
+    close,
+    set,
     onChange,
-  } = useCheckboxState()
-
-  const [benefits, setBenefits] = useState('0')
-
-  const close = useCallback(() => {
-    setVisible(false)
-  }, [])
-
-  const set = useCallback(() => {
-    plansStore.setMonthPlansSettingsDB({
-      autoCreate: !!autoContinueMonthPlan,
-      sum: +benefits,
-    })
-
-    close()
-
-    ToastService.showSuccess('Схема добавлена')
-  }, [autoContinueMonthPlan, benefits])
-
-  useEffect(() => {
-    if (plansStore.monthPlansSettings) {
-      setAutoContinueMonthPlan(plansStore.monthPlansSettings.autoCreate)
-      if (plansStore.monthPlansSettings.sum) {
-        setBenefits(plansStore.monthPlansSettings.sum.toString())
-      }
-    }
-  }, [plansStore.monthPlansSettings])
-
-  const currentDate = useMemo(() => {
-    const date = new Date()
-
-    return `${months[date.getMonth()]} ${date.getFullYear()}`
-  }, [months])
+    autoContinueMonthPlan,
+    setAutoContinueMonthPlan,
+    benefits,
+    setBenefits,
+  } = useSchemaMonthPlan({ setVisible })
 
   return (
     <ModalWrapper visible={visible} close={close}>
@@ -106,4 +61,4 @@ const AddMonthPlan: FC<AddMonthPlanPropsType> = ({ visible, setVisible }) => {
   )
 }
 
-export default AddMonthPlan
+export default SchemaMonthPlanModal

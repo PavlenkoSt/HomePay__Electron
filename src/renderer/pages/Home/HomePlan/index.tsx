@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react'
 import TextButton from 'renderer/components/Btns/TextButton'
 import AddBtn from 'renderer/components/Btns/AddBtn'
 import { useStore } from 'renderer/store'
-import AddMonthPlan from './AddMonthPlan'
+import SchemaMonthPlanModal from './SchemaMonthPlanModal'
 import HomePlanItem from './HomePlanItem'
 
 import styles from './styles.module.scss'
@@ -57,7 +57,7 @@ const HomePlan = () => {
             <AddBtn title="Добавить план" action={() => {}} />
           </div>
         </div>
-        <AddMonthPlan visible={monthPlanVisible} setVisible={setMonthPlanVisible} />
+        <SchemaMonthPlanModal visible={monthPlanVisible} setVisible={setMonthPlanVisible} />
       </div>
     </div>
   )

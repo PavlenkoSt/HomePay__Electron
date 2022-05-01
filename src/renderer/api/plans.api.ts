@@ -3,7 +3,7 @@ import { IMonthPlan, IPlan, IPlanSettings } from 'renderer/types/IPlan'
 enum PlansApiKeys {
   MONTHS = 'month_plans',
   CUSTOM = 'custom_plans',
-  SETTINGS = 'settings_month_plans',
+  SCHEMA = 'schema_month_plans',
 }
 
 const plansApi = {
@@ -20,10 +20,10 @@ const plansApi = {
     window.electron.store.set(PlansApiKeys.CUSTOM, plans)
   },
   getSettingsPlan: () => {
-    return window.electron.store.get(PlansApiKeys.SETTINGS)
+    return window.electron.store.get(PlansApiKeys.SCHEMA)
   },
   setSettingsMonthPlan: (settings: IPlanSettings) => {
-    window.electron.store.set(PlansApiKeys.SETTINGS, settings)
+    window.electron.store.set(PlansApiKeys.SCHEMA, settings)
   },
 }
 
