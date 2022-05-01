@@ -20,6 +20,5 @@ export enum PlanStatusEnum {
 }
 
 export interface IPlanSettings {
-  autoCreate: boolean
   sum: number | null
 }

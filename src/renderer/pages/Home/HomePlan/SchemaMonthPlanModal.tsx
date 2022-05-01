@@ -1,5 +1,4 @@
 import { Dispatch, FC, SetStateAction } from 'react'
-import { Checkbox } from 'pretty-checkbox-react'
 
 import TextButton, { ButtonTypeEnum } from 'renderer/components/Btns/TextButton'
 import useSchemaMonthPlan from 'renderer/hooks/plans/useSchemaMonthPlan'
@@ -15,15 +14,7 @@ type AddMonthPlanPropsType = {
 }
 
 const SchemaMonthPlanModal: FC<AddMonthPlanPropsType> = ({ visible, setVisible }) => {
-  const {
-    close,
-    set,
-    onChange,
-    autoContinueMonthPlan,
-    setAutoContinueMonthPlan,
-    benefits,
-    setBenefits,
-  } = useSchemaMonthPlan({ setVisible })
+  const { close, set, benefits, setBenefits } = useSchemaMonthPlan({ setVisible })
 
   const { plansStore } = useStore()
 
@@ -35,25 +26,14 @@ const SchemaMonthPlanModal: FC<AddMonthPlanPropsType> = ({ visible, setVisible }
           доходности
         </h2>
         <div>
-          <div className={styles.checkbox}>
-            <Checkbox
-              shape="curve"
-              variant="thick"
-              color="success-o"
-              onChange={onChange}
-              state={autoContinueMonthPlan}
-              //@ts-ignore
-              setState={setAutoContinueMonthPlan}
-            >
-              Автоматически создавать планы по схеме для последующих месяцев
-            </Checkbox>
+          <div className={styles.input}>
+            <Input
+              label="Ожидаемый доход"
+              value={benefits}
+              setValue={(text: string) => setBenefits((+text).toString())}
+              type="number"
+            />
           </div>
-          <Input
-            label="Ожидаемый доход"
-            value={benefits}
-            setValue={(text: string) => setBenefits((+text).toString())}
-            type="number"
-          />
           <div className={styles.btns}>
             <TextButton onClick={set} type={ButtonTypeEnum.PRIMARY}>
               Принять

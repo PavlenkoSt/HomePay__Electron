@@ -1,10 +1,15 @@
-.checkbox {
-  margin-top: 30px;
-  margin-bottom: 20px;
-}
-
 .btns {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.message {
+  margin-top: 20px;
+  font-style: italic;
+}
+
+.input {
+  margin-top: 20px;
+  margin-bottom: 10px;
 }

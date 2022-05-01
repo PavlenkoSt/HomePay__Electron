@@ -41,7 +41,7 @@ const HomePlan = () => {
                 !plansStore.monthPlansSettings ? ButtonTypeEnum.PRIMARY : ButtonTypeEnum.DEFAULT
               }
             >
-              {!plansStore.monthPlansSettings ? 'Добавить схему' : 'Редактировать схему'}
+              {!plansStore.monthPlansSettings ? 'Назначить схему' : 'Редактировать схему'}
             </TextButton>
           </div>
         </div>
