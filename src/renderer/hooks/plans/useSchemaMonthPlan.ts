@@ -53,6 +53,10 @@ const useSchemaMonthPlan = ({ setVisible }: useSchemaMonthPlanPropsType) => {
   // )
 
   useEffect(() => {
+    setAutoContinueMonthPlan(true)
+  }, [])
+
+  useEffect(() => {
     if (plansStore.monthPlansSettings) {
       setAutoContinueMonthPlan(plansStore.monthPlansSettings.autoCreate)
       if (plansStore.monthPlansSettings.sum) {
