@@ -10,13 +10,13 @@ const plansApi = {
   getMonthPlans: () => {
     return window.electron.store.get(PlansApiKeys.MONTHS)
   },
-  setMonthPlans: (plans: IMonthPlan) => {
+  setMonthPlans: (plans: IMonthPlan[]) => {
     window.electron.store.set(PlansApiKeys.MONTHS, plans)
   },
   getPlans: () => {
     return window.electron.store.get(PlansApiKeys.CUSTOM)
   },
-  setPlans: (plans: IPlan) => {
+  setPlans: (plans: IPlan[]) => {
     window.electron.store.set(PlansApiKeys.CUSTOM, plans)
   },
   getSettingsPlan: () => {

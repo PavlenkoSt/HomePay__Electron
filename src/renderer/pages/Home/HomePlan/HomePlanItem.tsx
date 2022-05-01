@@ -1,7 +1,8 @@
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 
 import CloseBtn from 'renderer/components/Btns/CloseBtn'
 import { PlanStatusEnum } from 'renderer/types/IPlan'
+import formatDate from 'renderer/utilts/formatDate'
 
 import styles from './HomePlanItem.module.scss'
 
@@ -12,13 +13,24 @@ import inProgressPic from 'renderer/assets/inProgress.svg'
 type HomePlanItemPropsType = {
   removePlan: Function
   status: PlanStatusEnum
+  title: string
+  goal: number
+  state: number
+  date: {
+    from: Date
+    to: Date
+  }
 }
 
-const HomePlanItem: FC<HomePlanItemPropsType> = ({ removePlan, status }) => {
-  const progress = 30
-
-  // const startDate = new Date()
-  // const endDate = new Date()
+const HomePlanItem: FC<HomePlanItemPropsType> = ({
+  removePlan,
+  status,
+  goal,
+  state,
+  title,
+  date,
+}) => {
+  const progress = useMemo(() => (state * 100) / goal, [goal, state])
 
   return (
     <div className={styles.container}>
@@ -44,11 +56,13 @@ const HomePlanItem: FC<HomePlanItemPropsType> = ({ removePlan, status }) => {
               }
             />
           </div>
-          <div className={styles.title}>This is the plan</div>
+          <div className={styles.title}>{title}</div>
         </div>
         <div className={styles.progressContainer}>
           <div className={styles.progress}>{`${progress}%`}</div>
-          <div className={styles.progress}>1900 / 2000 ₴</div>
+          <div className={styles.progress}>
+            {state} / {goal} ₴
+          </div>
         </div>
       </div>
       <div className={styles.lineContainer}>
@@ -57,8 +71,8 @@ const HomePlanItem: FC<HomePlanItemPropsType> = ({ removePlan, status }) => {
         </div>
       </div>
       <div className={styles.footer}>
-        <div className={styles.date}>от 20.02.2022</div>
-        <div className={styles.date}>до 20.05.2022</div>
+        <div className={styles.date}>от {formatDate.number(new Date(date.from))}</div>
+        <div className={styles.date}>до {formatDate.number(new Date(date.to))}</div>
       </div>
     </div>
   )

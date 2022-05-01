@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import { useCallback, useState } from 'react'
 
+import useAutoCreateMonthPlan from 'renderer/hooks/plans/useAutoCreateMonthPlan'
 import TextButton, { ButtonTypeEnum } from 'renderer/components/Btns/TextButton'
 import AddBtn from 'renderer/components/Btns/AddBtn'
 import { useStore } from 'renderer/store'
@@ -11,6 +12,8 @@ import styles from './styles.module.scss'
 
 const HomePlan = () => {
   const { plansStore } = useStore()
+
+  useAutoCreateMonthPlan()
 
   const [monthPlanVisible, setMonthPlanVisible] = useState(false)
 
@@ -23,7 +26,15 @@ const HomePlan = () => {
         <div className={styles.planList}>
           {!!plansStore.monthPlansSettings || plansStore.monthPlans.length ? (
             plansStore.monthPlans.map((plan) => (
-              <HomePlanItem removePlan={removePlan} status={plan.status} />
+              <HomePlanItem
+                key={plan.title}
+                removePlan={removePlan}
+                title={plan.title}
+                goal={plan.goal}
+                state={plan.state}
+                status={plan.status}
+                date={plan.date}
+              />
             ))
           ) : (
             <div className={styles.message}>Пока не назначено схемы</div>

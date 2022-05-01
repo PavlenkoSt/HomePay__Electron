@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
 
 import { useStore } from 'renderer/store/index'
 import ToastService from 'renderer/services/ToastService'
@@ -25,30 +25,6 @@ const useSchemaMonthPlan = ({ setVisible }: useSchemaMonthPlanPropsType) => {
 
     ToastService.showSuccess('Схема добавлена')
   }, [benefits])
-
-  const months = useMemo(
-    () => [
-      'Январь',
-      'Февраль',
-      'Март',
-      'Апрель',
-      'Май',
-      'Июнь',
-      'Июль',
-      'Август',
-      'Сентябрь',
-      'Октябрь',
-      'Ноябрь',
-      'Декабрь',
-    ],
-    []
-  )
-
-  const currentDate = useMemo(() => {
-    const date = new Date()
-
-    return `${months[date.getMonth()]} ${date.getFullYear()}`
-  }, [months])
 
   useEffect(() => {
     if (plansStore.monthPlansSettings && plansStore.monthPlansSettings.sum) {
