@@ -54,7 +54,7 @@ const Incomes = () => {
               </div>
             </div>
             <TextButton type={ButtonTypeEnum.PRIMARY} onClick={pay}>
-              Оплечено
+              Оплачено
             </TextButton>
           </div>
         )}

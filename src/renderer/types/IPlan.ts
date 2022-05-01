@@ -18,3 +18,8 @@ export enum PlanStatusEnum {
   FAILED = 'failed',
   WAITING = 'waiting',
 }
+
+export interface IPlanSettings {
+  autoCreate: boolean
+  sum: number | null
+}

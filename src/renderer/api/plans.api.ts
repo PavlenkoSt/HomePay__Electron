@@ -1,9 +1,9 @@
-import { IMonthPlan, IPlan } from 'renderer/types/IPlan'
+import { IMonthPlan, IPlan, IPlanSettings } from 'renderer/types/IPlan'
 
 enum PlansApiKeys {
   MONTHS = 'month_plans',
   CUSTOM = 'custom_plans',
-  AUTO_CONTINUE_MONTH_PLAN = 'auto_continue_month_plan',
+  SETTINGS = 'settings_month_plans',
 }
 
 const plansApi = {
@@ -19,11 +19,11 @@ const plansApi = {
   setPlans: (plans: IPlan) => {
     window.electron.store.set(PlansApiKeys.CUSTOM, plans)
   },
-  getAutoContinueMonthPlan: () => {
-    return window.electron.store.get(PlansApiKeys.AUTO_CONTINUE_MONTH_PLAN)
+  getSettingsPlan: () => {
+    return window.electron.store.get(PlansApiKeys.SETTINGS)
   },
-  setAutoContinueMonthPlan: (status: boolean) => {
-    window.electron.store.set(PlansApiKeys.AUTO_CONTINUE_MONTH_PLAN, status)
+  setSettingsMonthPlan: (settings: IPlanSettings) => {
+    window.electron.store.set(PlansApiKeys.SETTINGS, settings)
   },
 }
 

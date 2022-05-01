@@ -2,6 +2,7 @@ import { FC } from 'react'
 import Modal from 'react-modal'
 
 import CloseBtn from '../Btns/CloseBtn'
+
 import styles from './styles.module.scss'
 
 type ModalWrapperPropsType = {
@@ -20,8 +21,9 @@ const ModalWrapper: FC<ModalWrapperPropsType> = ({ children, visible, close }) =
           top: '100px',
           bottom: 'auto',
           overflow: 'unset',
-          width: 600,
-          left: 'calc(50% - 300px)',
+          width: 800,
+          left: 'calc(50% - 400px)',
+          padding: '14px 20px 20px'
         },
       }}
     >
