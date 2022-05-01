@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react'
+import { FC, useMemo, useState } from 'react'
 
 import { PlanStatusEnum } from 'renderer/types/IPlan'
 import formatDate from 'renderer/utilts/formatDate'
@@ -10,6 +10,7 @@ import checkPic from 'renderer/assets/check.svg'
 import failPic from 'renderer/assets/fail.svg'
 import inProgressPic from 'renderer/assets/inProgress.svg'
 import editPic from 'renderer/assets/edit.svg'
+import EditMonthPlanModal from './EditMonthPlanModal'
 
 type HomePlanItemPropsType = {
   id: number
@@ -26,13 +27,15 @@ type HomePlanItemPropsType = {
 const HomePlanItem: FC<HomePlanItemPropsType> = ({ id, status, goal, state, title, date }) => {
   const progress = useMemo(() => Math.round((state * 100) / goal), [goal, state])
 
+  const [editModalVisible, setEditModalVisible] = useState(false)
+
   return (
     <div className={styles.container}>
       <div className={styles.editContainer}>
         <IconBtn
           btnStyles={{ backgroundColor: '#eea300', borderRadius: 50, border: '1px solid #cc8d02' }}
           icon={editPic}
-          action={() => {}}
+          action={() => setEditModalVisible(true)}
           small
         />
       </div>
@@ -68,6 +71,13 @@ const HomePlanItem: FC<HomePlanItemPropsType> = ({ id, status, goal, state, titl
         <div className={styles.date}>от {formatDate.number(new Date(date.from))}</div>
         <div className={styles.date}>до {formatDate.number(new Date(date.to))}</div>
       </div>
+      <EditMonthPlanModal
+        visible={editModalVisible}
+        setVisible={setEditModalVisible}
+        id={id}
+        title={title}
+        goal={goal}
+      />
     </div>
   )
 }

@@ -35,7 +35,18 @@ class PlansStore {
     this.saveMonthPlans([planMonth, ...this.monthPlans])
   }
 
-  @action editPlanMonthDB() {}
+  @action editPlanMonthDB(id: number, sum: number) {
+    const plans: IMonthPlan[] = []
+
+    this.monthPlans.forEach((plan) => {
+      if (plan.id === id) {
+        plan.goal = sum
+      }
+      plans.push(plan)
+    })
+
+    this.saveMonthPlans(plans)
+  }
 
   @action addPlanDB() {}
 
