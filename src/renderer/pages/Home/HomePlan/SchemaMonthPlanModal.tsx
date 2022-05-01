@@ -5,8 +5,9 @@ import TextButton, { ButtonTypeEnum } from 'renderer/components/Btns/TextButton'
 import useSchemaMonthPlan from 'renderer/hooks/plans/useSchemaMonthPlan'
 import ModalWrapper from 'renderer/components/ModalWrapper'
 import Input from 'renderer/components/Form/Input'
+import { useStore } from 'renderer/store'
 
-import styles from './AddMonthPlan.module.scss'
+import styles from './SchemaMonthPlanModal.module.scss'
 
 type AddMonthPlanPropsType = {
   visible: boolean
@@ -15,7 +16,6 @@ type AddMonthPlanPropsType = {
 
 const SchemaMonthPlanModal: FC<AddMonthPlanPropsType> = ({ visible, setVisible }) => {
   const {
-    currentDate,
     close,
     set,
     onChange,
@@ -25,10 +25,15 @@ const SchemaMonthPlanModal: FC<AddMonthPlanPropsType> = ({ visible, setVisible }
     setBenefits,
   } = useSchemaMonthPlan({ setVisible })
 
+  const { plansStore } = useStore()
+
   return (
     <ModalWrapper visible={visible} close={close}>
       <div>
-        <h2 className="title">Добавить план на текущий месяц ({currentDate})</h2>
+        <h2 className="title">
+          {!plansStore.monthPlansSettings ? 'Добавить' : 'Редактировать'} схему планирования
+          доходности
+        </h2>
         <div>
           <div className={styles.checkbox}>
             <Checkbox
@@ -40,7 +45,7 @@ const SchemaMonthPlanModal: FC<AddMonthPlanPropsType> = ({ visible, setVisible }
               //@ts-ignore
               setState={setAutoContinueMonthPlan}
             >
-              Автоматически пересоздавать данный план для следующих месяцев
+              Автоматически создавать планы по схеме для последующих месяцев
             </Checkbox>
           </div>
           <Input

@@ -34,23 +34,23 @@ const useSchemaMonthPlan = ({ setVisible }: useSchemaMonthPlanPropsType) => {
     ToastService.showSuccess('Схема добавлена')
   }, [autoContinueMonthPlan, benefits])
 
-  const months = useMemo(
-    () => [
-      'Январь',
-      'Февраль',
-      'Март',
-      'Апрель',
-      'Май',
-      'Июнь',
-      'Июль',
-      'Август',
-      'Сентябрь',
-      'Октябрь',
-      'Ноябрь',
-      'Декабрь',
-    ],
-    []
-  )
+  // const months = useMemo(
+  //   () => [
+  //     'Январь',
+  //     'Февраль',
+  //     'Март',
+  //     'Апрель',
+  //     'Май',
+  //     'Июнь',
+  //     'Июль',
+  //     'Август',
+  //     'Сентябрь',
+  //     'Октябрь',
+  //     'Ноябрь',
+  //     'Декабрь',
+  //   ],
+  //   []
+  // )
 
   useEffect(() => {
     if (plansStore.monthPlansSettings) {
@@ -61,14 +61,13 @@ const useSchemaMonthPlan = ({ setVisible }: useSchemaMonthPlanPropsType) => {
     }
   }, [plansStore.monthPlansSettings])
 
-  const currentDate = useMemo(() => {
-    const date = new Date()
+  // const currentDate = useMemo(() => {
+  //   const date = new Date()
 
-    return `${months[date.getMonth()]} ${date.getFullYear()}`
-  }, [months])
+  //   return `${months[date.getMonth()]} ${date.getFullYear()}`
+  // }, [months])
 
   return {
-    currentDate,
     close,
     set,
     onChange,

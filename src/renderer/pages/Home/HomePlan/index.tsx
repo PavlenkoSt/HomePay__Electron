@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import { useCallback, useState } from 'react'
 
-import TextButton from 'renderer/components/Btns/TextButton'
+import TextButton, { ButtonTypeEnum } from 'renderer/components/Btns/TextButton'
 import AddBtn from 'renderer/components/Btns/AddBtn'
 import { useStore } from 'renderer/store'
 import SchemaMonthPlanModal from './SchemaMonthPlanModal'
@@ -21,12 +21,12 @@ const HomePlan = () => {
       <div className={styles.block}>
         <h4 className={styles.title}>Ежемесячные финансовые планы</h4>
         <div className={styles.planList}>
-          {plansStore.monthPlans.length ? (
+          {!!plansStore.monthPlansSettings || plansStore.monthPlans.length ? (
             plansStore.monthPlans.map((plan) => (
               <HomePlanItem removePlan={removePlan} status={plan.status} />
             ))
           ) : (
-            <div className={styles.message}>Пока не назначено ежемесячный план</div>
+            <div className={styles.message}>Пока не назначено схемы</div>
           )}
           <div className={styles.btns}>
             {!!plansStore.monthPlans.length && plansStore.monthPlans.length > 5 && (
@@ -34,7 +34,15 @@ const HomePlan = () => {
                 <TextButton>Показать ещё</TextButton>
               </div>
             )}
-            <AddBtn title="Добавить план" action={() => setMonthPlanVisible(true)} />
+            <TextButton
+              small
+              onClick={() => setMonthPlanVisible(true)}
+              type={
+                !plansStore.monthPlansSettings ? ButtonTypeEnum.PRIMARY : ButtonTypeEnum.DEFAULT
+              }
+            >
+              {!plansStore.monthPlansSettings ? 'Добавить схему' : 'Редактировать схему'}
+            </TextButton>
           </div>
         </div>
       </div>
