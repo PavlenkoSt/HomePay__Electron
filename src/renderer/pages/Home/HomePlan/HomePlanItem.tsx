@@ -1,17 +1,18 @@
 import { FC, useMemo } from 'react'
 
-import CloseBtn from 'renderer/components/Btns/CloseBtn'
 import { PlanStatusEnum } from 'renderer/types/IPlan'
 import formatDate from 'renderer/utilts/formatDate'
+import IconBtn from 'renderer/components/Btns/IconBtn'
 
 import styles from './HomePlanItem.module.scss'
 
 import checkPic from 'renderer/assets/check.svg'
 import failPic from 'renderer/assets/fail.svg'
 import inProgressPic from 'renderer/assets/inProgress.svg'
+import editPic from 'renderer/assets/edit.svg'
 
 type HomePlanItemPropsType = {
-  removePlan: Function
+  id: number
   status: PlanStatusEnum
   title: string
   goal: number
@@ -22,24 +23,17 @@ type HomePlanItemPropsType = {
   }
 }
 
-const HomePlanItem: FC<HomePlanItemPropsType> = ({
-  removePlan,
-  status,
-  goal,
-  state,
-  title,
-  date,
-}) => {
+const HomePlanItem: FC<HomePlanItemPropsType> = ({ id, status, goal, state, title, date }) => {
   const progress = useMemo(() => Math.round((state * 100) / goal), [goal, state])
 
   return (
     <div className={styles.container}>
-      <div className={styles.removeContainer}>
-        <CloseBtn
+      <div className={styles.editContainer}>
+        <IconBtn
+          btnStyles={{ backgroundColor: '#eea300', borderRadius: 50, border: '1px solid #cc8d02' }}
+          icon={editPic}
+          action={() => {}}
           small
-          setVisible={() => {
-            removePlan()
-          }}
         />
       </div>
       <div className={styles.header}>

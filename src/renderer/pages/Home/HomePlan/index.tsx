@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 
 import useAutoCreateMonthPlan from 'renderer/hooks/plans/useAutoCreateMonthPlan'
 import TextButton, { ButtonTypeEnum } from 'renderer/components/Btns/TextButton'
@@ -17,8 +17,6 @@ const HomePlan = () => {
 
   const [monthPlanVisible, setMonthPlanVisible] = useState(false)
 
-  const removePlan = useCallback(() => {}, [])
-
   return (
     <div className={styles.container}>
       <div className={styles.block}>
@@ -28,7 +26,7 @@ const HomePlan = () => {
             plansStore.monthPlans.map((plan) => (
               <HomePlanItem
                 key={plan.title}
-                removePlan={removePlan}
+                id={plan.id}
                 title={plan.title}
                 goal={plan.goal}
                 state={plan.state}
@@ -63,7 +61,7 @@ const HomePlan = () => {
           {plansStore.plans.length ? (
             plansStore.plans.map((plan) => (
               <HomePlanItem
-                removePlan={removePlan}
+                id={plan.id}
                 status={plan.status}
                 title={plan.title}
                 date={plan.date}

@@ -1,0 +1,31 @@
+.btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all ease 0.2s;
+
+  &:hover {
+    & .pic {
+      transform: scale(0.8);
+    }
+  }
+}
+
+.btnSmall {
+  width: 25px;
+  height: 25px;
+
+  & .pic {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.pic {
+  width: 20px;
+  height: 20px;
+  transition: all ease 0.1s;
+}

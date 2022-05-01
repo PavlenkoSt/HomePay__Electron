@@ -35,8 +35,6 @@ class PlansStore {
     this.saveMonthPlans([planMonth, ...this.monthPlans])
   }
 
-  @action removePlanMonthDB() {}
-
   @action editPlanMonthDB() {}
 
   @action addPlanDB() {}
