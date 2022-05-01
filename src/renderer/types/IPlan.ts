@@ -21,4 +21,5 @@ export enum PlanStatusEnum {
 
 export interface IPlanSettings {
   sum: number | null
+  active: boolean
 }

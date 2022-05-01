@@ -48,6 +48,7 @@ const useAutoCreateMonthPlan = () => {
   useEffect(() => {
     if (
       plansStore.monthPlansSettings &&
+      plansStore.monthPlansSettings.active &&
       plansStore.monthPlansSettings.sum &&
       !checkExistPlanForThisMonth(currentDate.label)
     ) {
