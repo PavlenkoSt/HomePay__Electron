@@ -2,12 +2,13 @@ import { action, makeAutoObservable, observable } from 'mobx'
 
 import plansApi from 'renderer/api/plans.api'
 import JSONCorrect from 'renderer/helpers/JSONCorrect'
-import { IMonthPlan, IPlan } from 'renderer/types/IPlan'
+import { IMonthPlan, IPlan, IPlanSettings } from 'renderer/types/IPlan'
 
 class PlansStore {
   @observable plans: IPlan[] = []
   @observable monthPlans: IMonthPlan[] = []
   @observable autoContinueMonthPlan: boolean = false
+  @observable monthPlansSettings: IPlanSettings | null = null
 
   constructor() {
     makeAutoObservable(this)
@@ -19,6 +20,15 @@ class PlansStore {
 
   @action setMonthPlans(plans: IMonthPlan[]) {
     this.monthPlans = plans
+  }
+
+  @action setMonthPlansSettings(plansSettings: IPlanSettings) {
+    this.monthPlansSettings = plansSettings
+  }
+
+  @action setMonthPlansSettingsDB(plansSettings: IPlanSettings) {
+    plansApi.setSettingsMonthPlan(plansSettings)
+    this.setMonthPlansSettings(plansSettings)
   }
 
   @action addPlanDB() {}
@@ -44,9 +54,11 @@ class PlansStore {
   @action init() {
     const plans = plansApi.getPlans() || []
     const monthPlans = plansApi.getMonthPlans() || []
+    const monthPlansSettings = plansApi.getSettingsPlan() || null
 
     this.setPlans(plans)
     this.setMonthPlans(monthPlans)
+    this.setMonthPlansSettings(monthPlansSettings)
   }
 }
 
